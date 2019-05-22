@@ -1,8 +1,8 @@
 <template>
 	<view>
 		<guide wx:if="{{showGuide}}"></guide>
-		<fuli-cell url="./installment" title="分期利率计算器" icon="/static/bag.png"></fuli-cell>
-		<fuli-cell url="./houseModel" title="二手房投资估算器" icon="/static/home.png"></fuli-cell>
+		<fuli-cell url="../installment/installment" title="分期利率计算器" icon="/static/bag.png"></fuli-cell>
+		<fuli-cell url="../houseModel/houseModel" title="二手房投资估算器" icon="/static/home.png"></fuli-cell>
 		<button open-type="contact">
 			<fuli-cell title="给开发者留言" icon="/static/service.png"></fuli-cell>
 		</button>

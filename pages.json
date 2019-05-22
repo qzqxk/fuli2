@@ -5,20 +5,27 @@
 			"style": {
 				"navigationBarTitleText": "复利计算器"
 			}
-		},
-		{
+		}, {
 			"path": "pages/investment/investment",
 			"style": {
 				"navigationBarTitleText": "定投计算器"
 			}
-		},
-		{
+		}, {
 			"path": "pages/more/more",
 			"style": {
 				"navigationBarTitleText": "更多"
 			}
+		}, {
+			"path": "pages/houseModel/houseModel",
+			"style": {
+				"navigationBarTitleText": "二手房投资估算"
+			}
 		}
-	],
+	    ,{
+            "path" : "pages/installment/installment",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTitleText": "复利计算器",
 		"navigationBarTextStyle": "black",
