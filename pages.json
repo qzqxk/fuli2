@@ -3,13 +3,13 @@
 		{
 			"path": "pages/compound/compound",
 			"style": {
-				"navigationBarTitleText": "复利计算"
+				"navigationBarTitleText": "复利计算器"
 			}
 		},
 		{
 			"path": "pages/investment/investment",
 			"style": {
-				"navigationBarTitleText": "定投计算"
+				"navigationBarTitleText": "定投计算器"
 			}
 		},
 		{
@@ -20,7 +20,7 @@
 		}
 	],
 	"globalStyle": {
-		"navigationBarTitleText": "计算器",
+		"navigationBarTitleText": "复利计算器",
 		"navigationBarTextStyle": "black",
 		"navigationBarBackgroundColor": "#f7f7f7",
 		"backgroundColor": "#f7f7f7",

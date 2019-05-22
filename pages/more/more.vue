@@ -1,22 +1,92 @@
 <template>
 	<view>
-		
+		<guide wx:if="{{showGuide}}"></guide>
+		<fuli-cell url="./installment" title="分期利率计算器" icon="/static/bag.png"></fuli-cell>
+		<fuli-cell url="./houseModel" title="二手房投资估算器" icon="/static/home.png"></fuli-cell>
+		<button open-type="contact">
+			<fuli-cell title="给开发者留言" icon="/static/service.png"></fuli-cell>
+		</button>
+		<view class="d-flex fuli-cell van-hairline--bottom" hover-class="fuli-cell-active" @tap="tipAttention">
+			<view class="fuli-cell-left d-flex align-items-center">
+				<image class="fuli-cell-icon" src="/static/expect.png"></image>
+			</view>
+			<view class="fuli-cell-right flex-grow-1 d-flex">
+				<view class="flex-grow-1">
+					<text>更多功能敬请期待</text>
+				</view>
+				<van-icon name="arrow" color="#888888" class="d-flex align-items-center"></van-icon>
+			</view>
+		</view>
 	</view>
 </template>
 
 <script>
+	import guide from '../../components/guide.vue'
+	
 	export default {
 		data() {
 			return {
-				
+				showGuide: false
 			}
 		},
+		onShareAppMessage(res) {
+			if (res.from === 'button') {
+				console.log(res.target);
+			}
+
+			return {
+				title: '极简复利计算器',
+				path: '/pages/compound'
+			};
+		},
 		methods: {
-			
+			tipAttention() {
+				this.showGuide = true;
+				setTimeout(() => {
+					this.showGuide = false;
+				}, 4000)
+			}
+		},
+		components:{
+			guide
 		}
 	}
 </script>
 
 <style>
+	.fuli-cell {
+		background: white;
+		color: #353535;
+	}
 
+	.fuli-cell-left {
+		padding: 31rpx 36rpx;
+	}
+
+	.fuli-cell-right {
+		font-size: 36rpx;
+		padding: 31rpx 26rpx 31rpx 0;
+	}
+
+	.fuli-cell-icon {
+		width: 40rpx;
+		height: 40rpx;
+	}
+
+	.fuli-cell-active {
+		background-color: #e5e5e5;
+	}
+
+	button {
+		padding: 0;
+		line-height: 1.6;
+		font-size: initial;
+		text-align: initial;
+		border-radius: inherit;
+	}
+
+	button:after {
+		border: none;
+		border-radius: 0;
+	}
 </style>
