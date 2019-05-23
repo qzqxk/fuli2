@@ -2,22 +2,22 @@
 	<view>
 		<view>
 			<van-cell-group>
-				<picker bindchange="bindPickerChange" value="{{index}}" range="{{columns}}">
-					<van-cell title="定投周期" value="{{unit}}" value-class="value-class" size="large" is-link></van-cell>
+				<picker bindchange="bindPickerChange" :value="index" :range="columns">
+					<van-cell title="定投周期" :value="unit" value-class="value-class" size="large" is-link></van-cell>
 				</picker>
-				<van-field value="{{ fixedMoney }}" @input="onFixedMoneyInput" required clearable label="每期定投" maxlength="6" type="number"
+				<van-field :value=" fixedMoney " @input="onFixedMoneyInput" required clearable label="每期定投" maxlength="6" type="number"
 				 input-align="right" use-icon-slot size="large" placeholder="每期定投金额">
 					<view slot="icon">
 						元
 					</view>
 				</van-field>
-				<van-field value="{{ fixedTime }}" required clearable label="定投年限" maxlength="3" type="number" input-align="right"
+				<van-field :value=" fixedTime " required clearable label="定投年限" maxlength="3" type="number" input-align="right"
 				 @input="onFixedTimeInput" use-icon-slot size="large" placeholder="打算定投多久">
 					<view slot="icon">
 						年
 					</view>
 				</van-field>
-				<van-field value="{{ expectInterest }}" required clearable @input="onExpectInterestInput" label="年化收益率" type="digit"
+				<van-field :value=" expectInterest " required clearable @input="onExpectInterestInput" label="年化收益率" type="digit"
 				 input-align="right" use-icon-slot size="large" placeholder="预期年化收益率">
 					<view slot="icon">
 						%
@@ -27,16 +27,16 @@
 		</view>
 		<view class="mt-5">
 			<van-cell-group>
-				<van-cell title="投入总本金" value="{{principal}}" size="large" value-class="value-class">
+				<van-cell title="投入总本金" :value="principal" size="large" value-class="value-class">
 				</van-cell>
-				<van-cell title="定投总收益" value="{{totalRevenue}}" size="large" value-class="value-class">
+				<van-cell title="定投总收益" :value="totalRevenue" size="large" value-class="value-class">
 				</van-cell>
-				<van-cell title="期末总资产" value="{{totalAssets}}" size="large" value-class="value-class">
+				<van-cell title="期末总资产" :value="totalAssets" size="large" value-class="value-class">
 				</van-cell>
 			</van-cell-group>
 		</view>
 		<view class="mx-3 mt-5">
-			<button class="weui-btn" type="primary" disabled="{{disabled}}" @tap="calculate">计算</button>
+			<button class="weui-btn" type="primary" :disabled="disabled" @tap="calculate">计算</button>
 			<button class="weui-btn text-primary" type="default" @tap="reset">复位</button>
 		</view>
 	</view>

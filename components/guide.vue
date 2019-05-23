@@ -1,8 +1,8 @@
 <template>
-	<view class="guide-box" wx:if="{{mr}}">
-		<view class="guide-box-arrow" style="right:{{mr}}"></view>
+	<view class="guide-box" v-if="mr">
+		<view class="guide-box-arrow" :style="{right:mr}"></view>
 		<view class="guide-box-content">
-			添加到我的小程序，找我更方便
+			添加到我的小程序，找wo 更方便
 		</view>
 	</view>
 </template>

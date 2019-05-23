@@ -59,5 +59,9 @@
             "urlCheck" : false
         },
         "usingComponents" : true
+    },
+    "h5" : {
+        "title" : "test1",
+        "domain" : "localhost:8080"
     }
 }

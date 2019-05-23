@@ -2,68 +2,68 @@
 	<view class="pb-5">
 		<view>
 			<van-cell-group>
-				<van-field value="{{ dealPrice }}" required clearable label="房屋总价" type="digit" input-align="right" @input="onDealPriceInput"
+				<van-field :value="dealPrice" required clearable label="房屋总价" type="digit" input-align="right" @input="onDealPriceInput"
 				 use-icon-slot size="large" placeholder="请输入房屋总价">
 					<view slot="icon">万</view>
 				</van-field>
-				<picker @change="onDownPaymentPickerChange" range="{{downPaymentColumns}}" value="1">
-					<van-cell title="首付比例" value="{{cdownPayment}}" value-class="value-class" size="large" is-link></van-cell>
+				<picker @change="onDownPaymentPickerChange" :range="downPaymentColumns" value="1">
+					<van-cell title="首付比例" :value="cdownPayment" value-class="value-class" size="large" is-link></van-cell>
 				</picker>
-				<picker @change="onLoansLimitPickerChange" range="{{loansLimitColumns}}" value="{{loansLimit-1}}">
-					<van-cell title="按揭年数" value="{{cloansLimit}}" value-class="value-class" size="large" is-link></van-cell>
+				<picker @change="onLoansLimitPickerChange" :range="loansLimitColumns" :value="loansLimit-1">
+					<van-cell title="按揭年数" :value="cloansLimit" value-class="value-class" size="large" is-link></van-cell>
 				</picker>
-				<picker @change="onLoansRatePickerChange" range-key="key" range="{{loansRateColumns}}" value="7">
-					<van-cell title="贷款年利率" value="{{cloansRate}}" value-class="value-class" size="large" is-link></van-cell>
+				<picker @change="onLoansRatePickerChange" range-key="key" :range="loansRateColumns" value="7">
+					<van-cell title="贷款年利率" :value="cloansRate" value-class="value-class" size="large" is-link></van-cell>
 				</picker>
 			</van-cell-group>
 		</view>
 		<view class="mt-3">
 			<van-cell-group>
-				<van-field value="{{ expenses }}" required clearable @input="onExpensesInput" label="税费" type="digit" input-align="right"
+				<van-field :value="expenses" required clearable @input="onExpensesInput" label="税费" type="digit" input-align="right"
 				 use-icon-slot size="large" placeholder="请输入税费">
 					<view slot="icon">万</view>
 				</van-field>
-				<van-field value="{{ loanService }}" required clearable @input="onLoanServiceInput" label="贷款服务费" type="digit"
+				<van-field :value="loanService" required clearable @input="onLoanServiceInput" label="贷款服务费" type="digit"
 				 input-align="right" use-icon-slot size="large" placeholder="请输入贷款担保服务费比例">
 					<view slot="icon">%</view>
 				</van-field>
-				<van-field value="{{ agentRate }}" required clearable @input="onAgentRateInput" label="中介费" type="digit"
-				 input-align="right" use-icon-slot size="large" placeholder="请输入中介抽成比例">
+				<van-field :value="agentRate" required clearable @input="onAgentRateInput" label="中介费" type="digit" input-align="right"
+				 use-icon-slot size="large" placeholder="请输入中介抽成比例">
 					<view slot="icon">%</view>
 				</van-field>
-				<van-field value="{{ otherCost }}" clearable @input="onOtherCostInput" label="其它费用" input-align="right"
-				 use-icon-slot size="large" type="number" placeholder="请输入其它费用">
+				<van-field :value="otherCost" clearable @input="onOtherCostInput" label="其它费用" input-align="right" use-icon-slot
+				 size="large" type="number" placeholder="请输入其它费用">
 					<view slot="icon">元</view>
 				</van-field>
 			</van-cell-group>
 		</view>
 		<view class="mt-3">
 			<van-cell-group>
-				<van-field value="{{ expectRenovationCost }}" required clearable @input="onExpectRenovationCostInput" label="预期装修费"
+				<van-field :value=" expectRenovationCost " required clearable @input="onExpectRenovationCostInput" label="预期装修费"
 				 type="digit" input-align="right" use-icon-slot size="large" placeholder="您预期装修费是多少">
 					<view slot="icon">万</view>
 				</van-field>
-				<van-field value="{{ expectMothRent }}" required clearable @input="onExpectMothRentInput" label="预期月租金" type="number"
+				<van-field :value=" expectMothRent " required clearable @input="onExpectMothRentInput" label="预期月租金" type="number"
 				 input-align="right" use-icon-slot size="large" placeholder="您预期房屋出租后能租多少钱">
 					<view slot="icon">元</view>
 				</van-field>
-				<van-field value="{{ expectOtherInterest }}" required clearable @input="onExpectOtherInterestInput" label="期望收益率"
-				 type="number" input-align="right" use-icon-slot size="large" placeholder="您期望每年的收益率是多少">
+				<van-field :value=" expectOtherInterest " required clearable @input="onExpectOtherInterestInput" label="期望收益率" type="number"
+				 input-align="right" use-icon-slot size="large" placeholder="您期望每年的收益率是多少">
 					<view slot="icon">%</view>
 				</van-field>
 			</van-cell-group>
 		</view>
 		<view class="mt-3">
 			<van-cell-group>
-				<van-field value="{{ expectHoldTime }}" required clearable @input="onExpectHoldTimeInput" label="持有时长" type="number"
+				<van-field :value=" expectHoldTime " required clearable @input="onExpectHoldTimeInput" label="持有时长" type="number"
 				 input-align="right" use-icon-slot size="large" placeholder="准备持有多久后卖出">
 					<view slot="icon">年</view>
 				</van-field>
-				<van-field value="{{ expectHouseRise }}" required clearable @input="onExpectHouseRiseInput" label="房价年涨幅" type="number"
+				<van-field :value=" expectHouseRise " required clearable @input="onExpectHouseRiseInput" label="房价年涨幅" type="number"
 				 input-align="right" use-icon-slot size="large" placeholder="持有期间您预期的房价年涨幅">
 					<view slot="icon">%</view>
 				</van-field>
-				<van-field value="{{ expectRentRise }}" required clearable @input="onExpectRentRiseInput" label="租金年涨幅" type="number"
+				<van-field :value=" expectRentRise" required clearable @input="onExpectRentRiseInput" label="租金年涨幅" type="number"
 				 input-align="right" use-icon-slot size="large" placeholder="持有期间您预期的租金年涨幅">
 					<view slot="icon">%</view>
 				</van-field>
@@ -71,15 +71,15 @@
 		</view>
 		<view>
 			<i-panel title="估算结果（不构成投资建议）">
-				<van-cell title="预期房屋售价" value="{{houseSell}}" size="large" value-class="value-class"></van-cell>
-				<van-cell title="每月还款" value="{{monthPay}}" size="large" value-class="value-class"></van-cell>
-				<van-cell title="初期总投资" value="{{totalInvestment}}" size="large" value-class="value-class"></van-cell>
-				<van-cell title="投资回报率" value="{{investment}}" size="large" value-class="value-class"></van-cell>
-				<van-cell title="年化回报率" value="{{annualized}}" size="large" value-class="value-class"></van-cell>
+				<van-cell title="预期房屋售价" :value="houseSell" size="large" value-class="value-class"></van-cell>
+				<van-cell title="每月还款" :value="monthPay" size="large" value-class="value-class"></van-cell>
+				<van-cell title="初期总投资" :value="totalInvestment" size="large" value-class="value-class"></van-cell>
+				<van-cell title="投资回报率" :value="investment" size="large" value-class="value-class"></van-cell>
+				<van-cell title="年化回报率" :value="annualized" size="large" value-class="value-class"></van-cell>
 			</i-panel>
 		</view>
 		<view class="mx-3 my-5">
-			<button class="weui-btn" type="primary" disabled="{{disabled}}" @tap="calculate">计算</button>
+			<button class="weui-btn" type="primary" :disabled="disabled" @tap="calculate">计算</button>
 			<button class="weui-btn text-primary" type="default" @tap="reset">复位</button>
 		</view>
 	</view>

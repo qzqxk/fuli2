@@ -1,49 +1,49 @@
 <template>
 	<view class="mb-5">
-		<van-tabs active="{{ active }}" bind:change="onChange">
+		<van-tabs :active=" active " bind:change="onChange">
 			<van-tab title="复利计算">
 				<van-cell-group>
-					<van-field value="{{ presentValue }}" @input="onPresentValueInput" required clearable label="初始本金" maxlength="10"
+					<van-field :value=" presentValue " @input="onPresentValueInput" required clearable label="初始本金" maxlength="10"
 					 type="number" input-align="right" use-icon-slot size="large" placeholder="请输入本金">
 						<view slot="icon">元</view>
 					</van-field>
-					<van-field value="{{ fixedTime }}" required clearable label="投资年限" type="number" input-align="right" @input="onFixedTimeInput"
+					<van-field :value=" fixedTime " required clearable label="投资年限" type="number" input-align="right" @input="onFixedTimeInput"
 					 use-icon-slot size="large" placeholder="打算投资多久">
 						<view slot="icon">年</view>
 					</van-field>
-					<van-field value="{{ expectInterest }}" required clearable @input="onExpectInterestInput" label="年化收益率" type="digit"
+					<van-field :value=" expectInterest " required clearable @input="onExpectInterestInput" label="年化收益率" type="digit"
 					 input-align="right" use-icon-slot size="large" placeholder="预期年化收益率">
 						<view slot="icon">%</view>
 					</van-field>
 				</van-cell-group>
 				<view class="mt-5">
 					<van-cell-group>
-						<van-cell title="总利息" value="{{totalRevenue}}" size="large" value-class="value-class"></van-cell>
-						<van-cell title="本息和" value="{{futureValue}}" size="large" value-class="value-class"></van-cell>
+						<van-cell title="总利息" :value="totalRevenue" size="large" value-class="value-class"></van-cell>
+						<van-cell title="本息和" :value="futureValue" size="large" value-class="value-class"></van-cell>
 						<van-cell title="查看图表" @tap="lookChart" size="large" value-class="value-class" is-link></van-cell>
 					</van-cell-group>
 				</view>
 				<view class="mx-3 mt-5">
-					<button class="weui-btn" type="primary" disabled="{{disabled}}" @tap="calculate">计算</button>
-					<button class="weui-btn" type="primary" disabled="{{saveDisabled}}" @tap="save">保存计算结果</button>
+					<button class="weui-btn" type="primary" :disabled="disabled" @tap="calculate">计算</button>
+					<button class="weui-btn" type="primary" :disabled="saveDisabled" @tap="save">保存计算结果</button>
 					<button class="weui-btn text-primary" type="default" @tap="reset">重置输入</button>
 				</view>
 			</van-tab>
 			<van-tab title="计算历史">
-				<view wx:if="{{!saveHistory.length}}" class="text-center">
+				<view v-if="!saveHistory.length" class="text-center">
 					您还没有保存任何计算
 				</view>
-				<view wx:for="{{saveHistory}}" wx:key="index">
-					<van-cell title="{{item.saveName}}" is-link></van-cell>
+				<view v-for="(item,index) in saveHistory" :key="index">
+					<van-cell :title="item.saveName" is-link></van-cell>
 				</view>
 			</van-tab>
 		</van-tabs>
-		<van-dialog use-slot show="{{ show }}" show-cancel-button confirmButtonText="保存" @close="onClose" @confirm="dialogConfirm">
+		<van-dialog use-slot :show=" show " show-cancel-button confirmButtonText="保存" @close="onClose" @confirm="dialogConfirm">
 			<view class="text-center pt-2">
 				请输入计算名称
 			</view>
 			<view class="py-3 px-5">
-				<input class="border py-1 px-3" value="{{cname}}" @input="onSaveNameInput" auto-focus />
+				<input class="border py-1 px-3" :value="cname" @input="onSaveNameInput" auto-focus />
 			</view>
 		</van-dialog>
 	</view>

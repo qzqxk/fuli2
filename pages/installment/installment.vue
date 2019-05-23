@@ -1,26 +1,26 @@
 <template>
 	<view>
 		<van-cell-group>
-			<van-field value="{{ instalmentAmount }}" @input="onInstalmentAmountInput" required clearable label="分期金额" maxlength="10"
+			<van-field :value="nstalmentAmount" @input="onInstalmentAmountInput" required clearable label="分期金额" maxlength="10"
 			 type="number" input-align="right" use-icon-slot size="large" placeholder="请输入分期金额">
 				<view slot="icon">元</view>
 			</van-field>
-			<van-field value="{{ periods }}" @input="onPeriodsInput" required clearable label="期数" maxlength="10" type="number"
+			<van-field :value=" periods " @input="onPeriodsInput" required clearable label="期数" maxlength="10" type="number"
 			 input-align="right" use-icon-slot size="large" placeholder="请输入期数">
 				<view slot="icon">期</view>
 			</van-field>
-			<van-field value="{{ repayment }}" @input="onRepaymentInput" required clearable label="每期还款" maxlength="10" type="number"
+			<van-field :value=" repayment " @input="onRepaymentInput" required clearable label="每期还款" maxlength="10" type="number"
 			 input-align="right" use-icon-slot size="large" placeholder="请输入每期还款">
 				<view slot="icon">元</view>
 			</van-field>
 		</van-cell-group>
 		<view class="mt-5">
 			<van-cell-group>
-				<van-cell title="年化利率" value="{{revenue}}" size="large" value-class="value-class"></van-cell>
+				<van-cell title="年化利率" :value="revenue" size="large" value-class="value-class"></van-cell>
 			</van-cell-group>
 		</view>
 		<view class="mx-3 mt-5">
-			<button class="weui-btn" type="primary" disabled="{{disabled}}" @tap="calculate">计算</button>
+			<button class="weui-btn" type="primary" :disabled="disabled" @tap="calculate">计算</button>
 			<button class="weui-btn text-primary" type="default" @tap="reset">复位</button>
 		</view>
 	</view>
