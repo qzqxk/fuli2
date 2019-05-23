@@ -20,12 +20,13 @@
 			"style": {
 				"navigationBarTitleText": "二手房投资估算"
 			}
+		}, {
+			"path": "pages/installment/installment",
+			"style": {
+				"navigationBarTitleText": "分期利率计算器"
+			}
 		}
-	    ,{
-            "path" : "pages/installment/installment",
-            "style" : {}
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTitleText": "复利计算器",
 		"navigationBarTextStyle": "black",

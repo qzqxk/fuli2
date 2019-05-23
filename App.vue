@@ -18,14 +18,6 @@
 	@import "common/bootstrap.wxss";
 	@import "common/vant.css";
 
-	.container {
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: space-between;
-		box-sizing: border-box;
-	}
 
 	page {
 		background-color: #f7f7f7;

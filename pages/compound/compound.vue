@@ -129,9 +129,9 @@
 					});
 					return;
 				}
-				wx.navigateTo({
-					url: './investmentChart'
-				})
+				// wx.navigateTo({
+				// 	url: './investmentChart'
+				// })
 			},
 			reset() {
 				this.presentValue = '';
