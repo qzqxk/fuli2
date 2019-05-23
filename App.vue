@@ -14,9 +14,9 @@
 
 <style>
 	/*每个页面公共css */
-	@import "weui.wxss";
-	@import "bootstrap.wxss";
-	@import "vant.css";
+	@import "common/weui.wxss";
+	@import "common/bootstrap.wxss";
+	@import "common/vant.css";
 
 	.container {
 		height: 100%;
