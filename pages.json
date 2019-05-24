@@ -1,11 +1,6 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-		    "path" : "pages/investmentChart/investmentChart",
-		    "style" : {
-				"navigationBarTitleText": "投资明细"
-			}
-		},{
 			"path": "pages/compound/compound",
 			"style": {
 				"navigationBarTitleText": "复利计算器"
@@ -29,6 +24,11 @@
 			"path": "pages/installment/installment",
 			"style": {
 				"navigationBarTitleText": "分期利率计算器"
+			}
+		},{
+		    "path" : "pages/investmentChart/investmentChart",
+		    "style" : {
+				"navigationBarTitleText": "投资明细"
 			}
 		}
 	],

@@ -1,6 +1,6 @@
 <template>
 	<view class="mb-5">
-		<van-tabs :active=" active " bind:change="onChange">
+		<van-tabs :active="active" @change="onTabChange">
 			<van-tab title="复利计算">
 				<van-cell-group>
 					<van-field :value=" presentValue " @input="onPresentValueInput" required clearable label="初始本金" maxlength="10"
@@ -37,7 +37,7 @@
 					<button type="primary" plain @tap="clearHistory" >清空计算历史</button>
 				</view>
 				<view v-for="(item,index) in saveHistory" :key="index">
-					<van-cell :title="item.saveName" is-link></van-cell>
+					<van-cell @tap="switchTab(index)" :title="item.saveName" is-link></van-cell>
 				</view>
 			</van-tab>
 		</van-tabs>
@@ -66,11 +66,12 @@
 				seriesData: [],
 				xAxisData: [],
 				saveHistory: wx.getStorageSync("saveHistory") || [],
-				saveName: ''
+				saveName: '',
+				active:0
 			}
 		},
 		onLoad() {
-
+			
 		},
 		onShareAppMessage(res) {
 			if (res.from === 'button') {
@@ -82,6 +83,17 @@
 			};
 		},
 		methods: {
+			onTabChange(event){
+				this.active = event.detail.index;
+			},
+			switchTab(index){
+				console.log(index)
+				this.reset();
+				this.presentValue = this.saveHistory[index].presentValue;
+				this.fixedTime = this.saveHistory[index].fixedTime;
+				this.expectInterest = this.saveHistory[index].expectInterest;
+				this.active = 0;
+			},
 			clearHistory(){
 				this.saveHistory = [];
 				this.time = 1;
@@ -145,6 +157,9 @@
 					url: '../investmentChart/investmentChart'
 				})
 			},
+			/**
+			 * 重置输入
+			 */
 			reset() {
 				this.presentValue = '';
 				this.fixedTime = '';
@@ -175,7 +190,10 @@
 				this.saveHistory.push({
 					saveName: this.saveName || this.cname,
 					seriesData: this.seriesData,
-					xAxisData: this.xAxisData
+					xAxisData: this.xAxisData,
+					presentValue:this.presentValue,
+					fixedTime: this.fixedTime,
+					expectInterest: this.expectInterest
 				});
 				wx.setStorageSync("saveHistory", this.saveHistory);
 				e.detail.dialog.close();
