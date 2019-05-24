@@ -2,13 +2,13 @@
 	<view>
 		<view class="qiun-columns">
 			<view class="qiun-bg-white qiun-title-bar qiun-common-mt">
-				<view class="qiun-title-dot-light">投资明细</view>
+				<view class="qiun-title-dot-light">收益曲线</view>
 			</view>
 			<view class="qiun-charts">
 				<canvas canvas-id="canvasLineA" id="canvasLineA" class="charts" @touchend="touchLineA"></canvas>
 			</view>
 		</view>
-		<view class="p-5" v-if="columns.length>0">
+		<view class="p-5" v-if="columns.length>0&&maxLine>1">
 			<picker @change="bindPickerChange" :value="index" :range="columns" range-key="saveName">
 				<button type="primary" plain="true">添加对比</button>
 			</picker>
@@ -27,8 +27,11 @@
 				cWidth: '',
 				cHeight: '',
 				pixelRatio: 1,
-				columns:uni.getStorageSync('saveHistory'),
-				LineA:{}
+				columns: uni.getStorageSync('saveHistory'),
+				LineA: {},
+				colors : ['#1592ff','#2ac35a','#f74963','#ffce11','#8342e7'],
+				i:0,		//i是colors的index
+				maxLine:5	//最大对比数量为5
 			}
 		},
 		onLoad() {
@@ -38,17 +41,21 @@
 			this.getServerData();
 		},
 		methods: {
-			bindPickerChange(e){
+			bindPickerChange(e) {
 				let data = this.columns[e.detail.value];
-				this.columns.splice(e.detail.value,1);
+				this.columns.splice(e.detail.value, 1);
 				this.LineA.series.push({
-					name:data.saveName,
-					data:data.seriesData
+					name: data.saveName,
+					data: data.seriesData,
+					color:this.getColor()
 				})
+				//取期数更大的那一个
+				let categories = this.LineA.categories.length>data.xAxisData.length?this.LineA.categories:data.xAxisData;
 				canvaLineA.updateData({
-					series:this.LineA.series
+					categories:categories,
+					series: this.LineA.series
 				})
-				
+				this.maxLine--;
 			},
 			getServerData() {
 				let seriesData = wx.getStorageSync('seriesData');
@@ -58,11 +65,14 @@
 					"series": [{
 						"name": "当前计算",
 						"data": seriesData,
-						"color":"red"
+						"color": this.getColor()
 					}]
 				};
 				//这里我后台返回的是数组，所以用等于，如果您后台返回的是单条数据，需要push进去
 				_self.showLineA("canvasLineA", this.LineA);
+			},
+			getColor(){
+				return this.colors[this.i++];
 			},
 			showLineA(canvasId, chartData) {
 				canvaLineA = new uCharts({
@@ -80,18 +90,26 @@
 					animation: true,
 					xAxis: {
 						gridColor: '#CCCCCC',
-						gridType: 'dash',
-						dashLength: 8
+						disableGrid: true,
 					},
 					yAxis: {
 						gridType: 'dash',
-						gridColor: '#CCCCCC',
 						dashLength: 8,
-						splitNumber: 5,
 						min: 10,
-						max: 180,
-						format: (val) => {
-							return val.toFixed(0) + '元'
+						format: (value) => {
+							if (value > 100000000) {
+								return value / 100000000 + 'B';
+							}
+							if (value > 1000000) {
+								return value / 1000000 + 'M';
+							}
+							if (value > 10000) {
+								return value / 10000 + 'W';
+							}
+							if (value > 1000) {
+								return value / 1000 + 'K';
+							}
+							return value;
 						}
 					},
 					width: _self.cWidth * _self.pixelRatio,
@@ -105,7 +123,7 @@
 			touchLineA(e) {
 				canvaLineA.showToolTip(e, {
 					format: function(item, category) {
-						return item.data+'元'
+						return item.data + '元'
 					}
 				});
 			}
