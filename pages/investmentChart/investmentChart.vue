@@ -8,7 +8,7 @@
 				<canvas canvas-id="canvasLineA" id="canvasLineA" class="charts" @touchend="touchLineA"></canvas>
 			</view>
 		</view>
-		<view class="p-5">
+		<view class="p-5" v-if="columns.length>0">
 			<picker @change="bindPickerChange" :value="index" :range="columns" range-key="saveName">
 				<button type="primary" plain="true">添加对比</button>
 			</picker>
@@ -40,7 +40,7 @@
 		methods: {
 			bindPickerChange(e){
 				let data = this.columns[e.detail.value];
-				console.log(this.LineA,'这是')
+				this.columns.splice(e.detail.value,1);
 				this.LineA.series.push({
 					name:data.saveName,
 					data:data.seriesData
@@ -48,6 +48,7 @@
 				canvaLineA.updateData({
 					series:this.LineA.series
 				})
+				
 			},
 			getServerData() {
 				let seriesData = wx.getStorageSync('seriesData');
@@ -55,8 +56,9 @@
 				this.LineA = {
 					"categories": xAxisData,
 					"series": [{
-						"name": "临时计算1",
-						"data": seriesData
+						"name": "当前计算",
+						"data": seriesData,
+						"color":"red"
 					}]
 				};
 				//这里我后台返回的是数组，所以用等于，如果您后台返回的是单条数据，需要push进去
@@ -70,14 +72,13 @@
 					fontSize: 11,
 					legend: true,
 					dataLabel: false,
-					dataPointShape: true,
+					dataPointShape: false,
 					background: '#FFFFFF',
 					pixelRatio: _self.pixelRatio,
 					categories: chartData.categories,
 					series: chartData.series,
 					animation: true,
 					xAxis: {
-						type: 'grid',
 						gridColor: '#CCCCCC',
 						gridType: 'dash',
 						dashLength: 8
