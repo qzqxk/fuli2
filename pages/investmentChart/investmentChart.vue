@@ -133,7 +133,6 @@
 
 <style>
 	page {
-		background: #F2F2F2;
 		width: 750upx;
 		overflow-x: hidden;
 	}
@@ -173,7 +172,7 @@
 	}
 
 	.qiun-title-dot-light {
-		border-left: 10upx solid #0ea391;
+		border-left: 10upx solid #09bb07;
 		padding-left: 10upx;
 		font-size: 32upx;
 		color: #000000
