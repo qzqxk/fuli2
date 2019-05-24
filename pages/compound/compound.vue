@@ -30,15 +30,18 @@
 				</view>
 			</van-tab>
 			<van-tab title="计算历史">
-				<view v-if="!saveHistory.length" class="text-center">
-					您还没有保存任何计算
+				<view v-if="!saveHistory.length" class="text-center p-2">
+					您还没有保存任何计算结果
+				</view>
+				<view v-if="saveHistory.length" class="p-3">
+					<button type="primary" plain @tap="clearHistory" >清空计算历史</button>
 				</view>
 				<view v-for="(item,index) in saveHistory" :key="index">
 					<van-cell :title="item.saveName" is-link></van-cell>
 				</view>
 			</van-tab>
 		</van-tabs>
-		<van-dialog use-slot :show=" show " show-cancel-button confirmButtonText="保存" @close="onClose" @confirm="dialogConfirm">
+		<van-dialog async-close use-slot :show="show" show-cancel-button confirmButtonText="保存" @confirm="dialogConfirm" @cancel="onCancel">
 			<view class="text-center pt-2">
 				请输入计算名称
 			</view>
@@ -79,6 +82,14 @@
 			};
 		},
 		methods: {
+			clearHistory(){
+				this.saveHistory = [];
+				this.time = 1;
+				uni.removeStorageSync("saveHistory");
+				uni.showToast({
+					title:'清除成功'
+				})
+			},
 			toThousand(num) {
 				return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
 			},
@@ -113,7 +124,8 @@
 				this.totalRevenue = this.dealNumber(
 					this.toThousand(tempFutureValue - this.presentValue) + '元'
 				);
-
+				this.seriesData=[];
+				this.xAxisData=[];
 				for (let i = 0; i < Number(this.fixedTime) + 1; i++) {
 					this.seriesData.push(Math.floor(this.presentValue * (1 + this.expectInterest / 100) ** i));
 					this.xAxisData.push(i)
@@ -129,9 +141,9 @@
 					});
 					return;
 				}
-				// wx.navigateTo({
-				// 	url: './investmentChart'
-				// })
+				wx.navigateTo({
+					url: '../investmentChart/investmentChart'
+				})
 			},
 			reset() {
 				this.presentValue = '';
@@ -149,25 +161,43 @@
 			/**
 			 * 保存计算结果
 			 */
-			dialogConfirm() {
+			dialogConfirm(e) {
+				//检查存储的名字是否重复
+				if(this.isExist(this.saveHistory,this.saveName || this.cname)){
+					uni.showToast({
+						title: '已存在相同计算名',
+						duration: 2000,
+						icon:"none"
+					});
+					e.detail.dialog.stopLoading();
+					return;
+				};
 				this.saveHistory.push({
 					saveName: this.saveName || this.cname,
 					seriesData: this.seriesData,
 					xAxisData: this.xAxisData
 				});
 				wx.setStorageSync("saveHistory", this.saveHistory);
+				e.detail.dialog.close();
+				this.show = false;
+				setTimeout(()=>{
+					this.time++;
+					this.saveName = '';
+				},500)
+			},
+			onCancel(e){
+				this.show = false;
+				e.detail.dialog.close();
 			},
 			/**
-			 * 弹框关闭触发
+			 * @param {Object} arr
+			 * @param {Object} key
+			 * 检查是否存在相同的计算名
 			 */
-			onClose(e) {
-				if (e.detail === 'confirm') {
-					setTimeout(() => {
-						this.time++;
-						this.saveName = '';
-					})
-				}
-				this.show = false;
+			isExist(arr,key){
+				return !arr.every((v)=>{
+					return v.saveName !=key;
+				})
 			}
 		},
 		computed: {

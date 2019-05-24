@@ -25,6 +25,11 @@
 			"style": {
 				"navigationBarTitleText": "分期利率计算器"
 			}
+		},{
+		    "path" : "pages/investmentChart/investmentChart",
+		    "style" : {
+				"navigationBarTitleText": "投资明细"
+			}
 		}
 	],
 	"globalStyle": {
