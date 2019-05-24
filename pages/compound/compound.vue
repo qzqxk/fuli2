@@ -1,6 +1,6 @@
 <template>
 	<view class="mb-5">
-		<van-tabs :active="active" @change="onTabChange">
+		<van-tabs :active="active" @change="onTabChange" color="#09bb07">
 			<van-tab title="复利计算">
 				<van-cell-group>
 					<van-field :value=" presentValue " @input="onPresentValueInput" required clearable label="初始本金" maxlength="10"
