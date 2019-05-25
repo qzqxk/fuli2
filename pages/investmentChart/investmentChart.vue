@@ -2,7 +2,7 @@
 	<view>
 		<view class="qiun-columns">
 			<view class="qiun-bg-white qiun-title-bar qiun-common-mt">
-				<view class="qiun-title-dot-light">收益曲线</view>
+				<view class="qiun-title-dot-light">数字曲线</view>
 			</view>
 			<view class="qiun-charts">
 				<canvas canvas-id="canvasLineA" id="canvasLineA" class="charts" @touchend="touchLineA"></canvas>
@@ -12,6 +12,9 @@
 			<picker @change="bindPickerChange" :value="index" :range="columns" range-key="saveName">
 				<button type="primary" plain="true">添加对比</button>
 			</picker>
+		</view>
+		<view v-if="isEmpty" class="text-center p-2">
+			<button type="primary" plain="true" @tap="showTip">添加对比</button>
 		</view>
 	</view>
 </template>
@@ -28,6 +31,7 @@
 				cHeight: '',
 				pixelRatio: 1,
 				columns: uni.getStorageSync('saveHistory'),
+				isEmpty:uni.getStorageSync('saveHistory').length==0,
 				LineA: {},
 				colors : ['#1592ff','#2ac35a','#f74963','#ffce11','#8342e7'],
 				i:0,		//i是colors的index
@@ -41,6 +45,12 @@
 			this.getServerData();
 		},
 		methods: {
+			showTip(){
+				uni.showToast({
+					title: '先保存一些计算结果再来对比',
+					icon: 'none'
+				});
+			},
 			bindPickerChange(e) {
 				let data = this.columns[e.detail.value];
 				this.columns.splice(e.detail.value, 1);

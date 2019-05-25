@@ -28,7 +28,7 @@
 		},{
 		    "path" : "pages/investmentChart/investmentChart",
 		    "style" : {
-				"navigationBarTitleText": "投资明细"
+				"navigationBarTitleText": "计算明细"
 			}
 		}
 	],
