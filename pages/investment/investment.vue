@@ -67,7 +67,7 @@
 			}
 			return {
 				title: '极简定投计算器',
-				path: '/pages/index'
+				path: '/pages/investment/investment'
 			}
 		},
 		methods: {

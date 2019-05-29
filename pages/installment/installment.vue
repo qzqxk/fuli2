@@ -47,7 +47,7 @@
 			}
 			return {
 				title: '分期利率计算器',
-				path: '/pages/installment'
+				path: '/pages/installment/installment'
 			};
 		},
 		methods: {

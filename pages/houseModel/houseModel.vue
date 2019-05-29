@@ -199,7 +199,7 @@
 
 			return {
 				title: '二手房投资估算',
-				path: '/pages/houseModel'
+				path: '/pages/houseModel/houseModel'
 			};
 		},
 		methods: {

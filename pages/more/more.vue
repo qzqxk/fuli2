@@ -36,7 +36,7 @@
 
 			return {
 				title: '极简复利计算器',
-				path: '/pages/compound'
+				path: '/pages/compound/compound'
 			};
 		},
 		methods: {
