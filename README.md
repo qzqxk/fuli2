@@ -14,6 +14,8 @@
 
 # 目录结构
 
+
+```
 fuli2
 ├─ .gitignore	
 ├─ App.vue
@@ -48,6 +50,7 @@ fuli2
        │    └─ cell
        ├─ i-view       iview组件库
        └─ vant         有赞组件库
+```
 
 # License
  
