@@ -15,7 +15,7 @@
 # 目录结构
 
 fuli2
-├─ .gitignore
+├─ .gitignore	
 ├─ App.vue
 ├─ common      通用样式文件
 │    ├─ bootstrap.wxss
