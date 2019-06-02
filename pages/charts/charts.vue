@@ -101,7 +101,12 @@
 			_self = this;
 			this.cWidth = uni.upx2px(750);
 			this.cHeight = uni.upx2px(700);
-			this.getServerData();
+			this.contrastData.push({
+				p: this.compoundParameter.present.value,
+				i: this.compoundParameter.i.value,
+				n: this.compoundParameter.n.value
+			})
+			this.redraw();
 		},
 		methods: {
 			goHome() {
@@ -118,21 +123,21 @@
 			},
 			dialogConfirm(e) {
 				//校验输入是否正确
-				if (this.contrastP=='') {
+				if (this.contrastP == '') {
 					uni.showToast({
 						title: '请输入本金',
 						icon: 'none'
 					})
 					e.detail.dialog.stopLoading();
 					return;
-				} else if(this.contrastN==''){
+				} else if (this.contrastN == '') {
 					uni.showToast({
 						title: '请输入期数',
 						icon: 'none'
 					})
 					e.detail.dialog.stopLoading();
 					return;
-				} else if(this.contrastI==''){
+				} else if (this.contrastI == '') {
 					uni.showToast({
 						title: '请输入收益率',
 						icon: 'none'
@@ -140,10 +145,10 @@
 					e.detail.dialog.stopLoading();
 					return;
 				}
-				
+
 				e.detail.dialog.close();
 				this.show = false;
-				
+
 				this.contrastData.push({
 					p: this.contrastP,
 					i: this.contrastI,
@@ -208,23 +213,6 @@
 				this.chartShow = false;
 			},
 
-			bindPickerChange(e) {
-				let data = this.columns[e.detail.value];
-				this.columns.splice(e.detail.value, 1);
-				this.LineA.series.push({
-					name: data.saveName,
-					data: data.seriesData,
-					color: this.getColor()
-				})
-
-				//取期数更大的那一个
-				let categories = this.LineA.categories.length > data.xAxisData.length ? this.LineA.categories : data.xAxisData;
-				canvaLineA.updateData({
-					categories: categories,
-					series: this.LineA.series
-				})
-				this.maxLine--;
-			},
 			dealUnit(iUnit, nUnit) {
 				if (iUnit.indexOf(nUnit) != -1) {
 					return n => n;
@@ -254,14 +242,6 @@
 						break;
 				}
 			},
-			getServerData() {
-				this.contrastData.push({
-					p: this.compoundParameter.present.value,
-					i: this.compoundParameter.i.value,
-					n: this.compoundParameter.n.value
-				})
-				this.redraw();
-			},
 			getColor() {
 				return this.colors[this.i++];
 			},
@@ -271,22 +251,20 @@
 					canvasId: canvasId,
 					type: 'line',
 					fontSize: 11,
-					legend: true,
-					dataLabel: false,
 					dataPointShape: false,
-					background: '#FFFFFF',
+					dataLabel:false,
+					background: '#f7f7f7',
 					pixelRatio: _self.pixelRatio,
 					categories: chartData.categories,
 					series: chartData.series,
-					animation: true,
 					xAxis: {
 						gridColor: '#CCCCCC',
 						disableGrid: true,
 					},
 					yAxis: {
-						gridType: 'dash',
-						dashLength: 8,
-						min: 10,
+						min: 1,
+						splitNumber:2,
+						gridColor:'#e5e5e5',
 						format: (value) => {
 							if (value > 100000000) {
 								return value / 100000000 + 'B';
@@ -306,7 +284,7 @@
 					width: _self.cWidth * _self.pixelRatio,
 					height: _self.cHeight * _self.pixelRatio,
 					extra: {
-						lineStyle: 'straight'
+						lineStyle: 'straight',
 					}
 				});
 
@@ -324,9 +302,8 @@
 
 <style>
 	.charts {
-		width: 750upx;
+		width: 100%;
 		height: 700upx;
-		background-color: #FFFFFF;
 	}
 
 	.container {
