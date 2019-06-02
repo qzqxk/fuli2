@@ -31,40 +31,32 @@
 			<button class="weui-btn" type="primary" @tap="toCharts">查看图表</button>
 		</view>
 		<view class="px-3 pb-5">
-			<scroll-view class="scroll-view_H" scroll-x="true" scroll-left="0">
-				<t-table @change="change" class="scroll-view-item_H">
-					<t-tr>
-						<t-th>期数({{compoundParameter.n.unit}})</t-th>
-						<t-th>总本金({{compoundParameter.present.unit}})</t-th>
-						<t-th>本期利息({{compoundParameter.present.unit}})</t-th>
-						<t-th>累计利息({{compoundParameter.present.unit}})</t-th>
-						<t-th>本息和({{compoundParameter.present.unit}})</t-th>
-					</t-tr>
-					<t-tr v-for="item in tableList" :key="item.id">
-						<t-td>{{item.id}}</t-td>
-						<t-td>{{item.p}}</t-td>
-						<t-td>{{item.currentI}}</t-td>
-						<t-td>{{item.iTotal}}</t-td>
-						<t-td>{{item.currentTotal}}</t-td>
-					</t-tr>
-				</t-table>
+			<scroll-view scroll-x="true" scroll-left="0">
+				<view class="scroll-view-item_H text-center text-df border radius">
+					<view class="py-2">
+						<view class="grid col-4">
+							<view>期数({{compoundParameter.n.unit}})</view>
+							<view>本期利息({{compoundParameter.present.unit}})</view>
+							<view>累计利息({{compoundParameter.present.unit}})</view>
+							<view>本息和({{compoundParameter.present.unit}})</view>
+						</view>
+					</view>
+					<view class="py-1" :class="index%2==0?'bg-gray light':''" v-for="(item,index) in tableList" :key="item.id">
+						<view class="grid col-4">
+							<view>{{item.id}}</view>
+							<view>{{item.currentI}}</view>
+							<view>{{item.iTotal}}</view>
+							<view>{{item.currentTotal}}</view>
+						</view>
+					</view>
+				</view>
 			</scroll-view>
 		</view>
 	</view>
 </template>
 
 <script>
-	import tTable from '@/components/t-table/t-table.vue';
-	import tTh from '@/components/t-table/t-th.vue';
-	import tTr from '@/components/t-table/t-tr.vue';
-	import tTd from '@/components/t-table/t-td.vue';
 	export default {
-		components: {
-			tTable,
-			tTh,
-			tTr,
-			tTd
-		},
 		data() {
 			return {
 				compoundParameter: uni.getStorageSync("compoundParameter"), //获取用户输入的计算参数
@@ -75,6 +67,9 @@
 		},
 		onLoad() {
 			this.calculate();
+		},
+		onReady() {
+
 		},
 		methods: {
 			toCharts() {
@@ -116,14 +111,10 @@
 				}
 				//保存上一期本息和
 				let previous = p;
-				let tempTableList = [];
-				if (n > 100) {
-					n = 100;
-				}
 				for (let j = 1; j < n + 1; j++) {
 					//当期本息和
 					let current = p * (1 + i / 100) ** dealN(j);
-					tempTableList.push({
+					this.tableList.push({
 						id: j, //期数
 						p: p, //初始本金
 						currentI: Math.trunc(current - previous), //本期利息
@@ -131,8 +122,6 @@
 						iTotal: Math.trunc(current - p), //总利息
 					})
 				}
-
-				this.tableList = tempTableList;
 			},
 
 			/**

@@ -1,22 +1,22 @@
 <template>
 	<view>
 		<view class="text-df">
-			<view class="grid col-4 px-2 py-1 border-bottom text-gray">
-				<view>序号</view>
-				<view>本金({{compoundParameter.present.unit}})</view>
-				<view>期数({{compoundParameter.n.unit}})</view>
-				<view>{{compoundParameter.i.unit}}</view>
+			<view class="flex px-3 py-1 border-bottom text-gray text-center">
+				<view class="text-left flex-sub">序号</view>
+				<view class="flex-twice">本金({{compoundParameter.present.unit}})</view>
+				<view class="flex-sub">期数({{compoundParameter.n.unit}})</view>
+				<view class="flex-sub">{{compoundParameter.i.unit}}</view>
 			</view>
-			<view class="grid col-4 ml-2 pr-2 py-2 border-bottom" v-for="(item,index) in contrastData" :key="index">
-				<view class="text-green">{{names[index]}}</view>
-				<view>{{toThousand(item.p)}}</view>
-				<view>{{item.n}}</view>
-				<view>{{item.i}}%</view>
+			<view class="flex ml-3 pr-3 py-2 border-bottom text-center" v-for="(item,index) in contrastData" :key="index">
+				<view class="text-green flex-sub text-left">{{names[index]}}</view>
+				<view class="flex-twice flex-shrink-0">{{toThousand(item.p)}}</view>
+				<view class="flex-sub">{{item.n}}</view>
+				<view class="flex-sub">{{item.i}}%</view>
 			</view>
-			<view v-show="addTip" class="p-2 text-link" @tap="addLine">
+			<view v-show="addTip" class="p-2 pl-3 text-link" @tap="addLine">
 				+ 添加对比数据
 			</view>
-			<view v-show="!addTip" class="p-2 text-gray">
+			<view v-show="!addTip" class="p-2 pl-3 text-gray">
 				已达对比上限
 			</view>
 		</view>

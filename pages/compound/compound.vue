@@ -17,7 +17,7 @@
 				期数
 			</view>
 			<input placeholder="请输入" v-model="fixedTime" type="number"></input>
-			<picker @change="bindPickerChange" :range="fixedTimeColumns">
+			<picker @change="bindFixedTimeUnitChange" :range="fixedTimeColumns">
 				<view class="action">
 					<text>{{fixedTimeUnit}}</text>
 					<text class="cuIcon-triangledownfill"></text>
@@ -114,6 +114,9 @@
 			bindExpectInterestUnitChange(e) {
 				this.expectInterestUnit = this.expectInterestColumns[e.detail.value];
 			},
+			bindFixedTimeUnitChange(e){
+				this.fixedTimeUnit = this.fixedTimeColumns[e.detail.value];
+			}
 		}
 	}
 </script>
