@@ -2,7 +2,7 @@
 	<view>
 		<view>
 			<van-cell-group>
-				<picker bindchange="bindPickerChange" :value="index" :range="columns">
+				<picker @change="bindPickerChange" :range="columns">
 					<van-cell title="定投周期" :value="unit" value-class="value-class" size="large" is-link></van-cell>
 				</picker>
 				<van-field :value=" fixedMoney " @input="onFixedMoneyInput" required clearable label="每期定投" maxlength="6" type="number"

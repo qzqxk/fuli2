@@ -5,7 +5,13 @@
 			"style": {
 				"navigationBarTitleText": "复利计算器"
 			}
-		}, {
+		},{
+            "path" : "pages/charts/charts",
+            "style" : {}
+        },{
+            "path" : "pages/result/result",
+            "style" : {}
+        },{
 			"path": "pages/investment/investment",
 			"style": {
 				"navigationBarTitleText": "定投计算器"
@@ -31,7 +37,7 @@
 				"navigationBarTitleText": "计算明细"
 			}
 		}
-	],
+    ],
 	"globalStyle": {
 		"navigationBarTitleText": "复利计算器",
 		"navigationBarTextStyle": "black",
