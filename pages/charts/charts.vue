@@ -9,7 +9,7 @@
 			</view>
 			<view class="flex ml-3 pr-3 py-2 border-bottom text-center" v-for="(item,index) in contrastData" :key="index">
 				<view class="text-green flex-sub text-left">{{names[index]}}</view>
-				<view class="flex-twice flex-shrink-0">{{toThousand(item.p)}}</view>
+				<view class="flex-twice flex-shrink-0">{{numberFormat(item.p)}}</view>
 				<view class="flex-sub">{{item.n}}</view>
 				<view class="flex-sub">{{item.i}}%</view>
 			</view>
@@ -67,6 +67,8 @@
 </template>
 
 <script>
+	let numeral = require('numeral');
+	numeral.defaultFormat('0,0.00');
 	import uCharts from '@/components/u-charts/u-charts.js';
 	var _self;
 	var canvaLineA = null;
@@ -89,7 +91,7 @@
 				show: false,
 				chartShow: true,
 				contrastData: [], //所有要对比的数据
-				names: ['A', 'B', 'C', 'D'], //每条数据的序号
+				names: ['A', 'B', 'C', 'D'] //每条数据的序号
 			}
 		},
 		computed: {
@@ -109,6 +111,9 @@
 			this.redraw();
 		},
 		methods: {
+			numberFormat(num){
+				return numeral(num).format();
+			},
 			goHome() {
 				uni.switchTab({
 					url: '/pages/compound/compound'
@@ -161,9 +166,6 @@
 					this.chartShow = true;
 				}, 200)
 			},
-			toThousand(num) {
-				return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
-			},
 			/**
 			 * 重绘图表
 			 */
@@ -184,7 +186,7 @@
 					let n = Number(this.contrastData[k].n);
 					let i = Number(this.contrastData[k].i);
 					for (let j = 0; j < Number(n) + 1; j++) {
-						seriesData.push(Math.floor(p * (1 + i / 100) ** dealN(j)));
+						seriesData.push((p * (1 + i / 100) ** dealN(j)).toFixed(2));
 					}
 					series.push({
 						name: this.names[k],
@@ -212,7 +214,6 @@
 				this.show = true;
 				this.chartShow = false;
 			},
-
 			dealUnit(iUnit, nUnit) {
 				if (iUnit.indexOf(nUnit) != -1) {
 					return n => n;
@@ -242,9 +243,6 @@
 						break;
 				}
 			},
-			getColor() {
-				return this.colors[this.i++];
-			},
 			showLineA(canvasId, chartData) {
 				canvaLineA = new uCharts({
 					$this: _self,
@@ -262,21 +260,21 @@
 						disableGrid: true,
 					},
 					yAxis: {
-						min: 1,
+						min: 0.01,
 						splitNumber:2,
 						gridColor:'#e5e5e5',
 						format: (value) => {
 							if (value > 100000000) {
-								return value / 100000000 + 'B';
+								return numeral(value / 100000000).format() + 'B';
 							}
 							if (value > 1000000) {
-								return value / 1000000 + 'M';
+								return numeral(value / 1000000).format() + 'M';
 							}
 							if (value > 10000) {
-								return value / 10000 + 'W';
+								return numeral(value / 10000).format() + 'W';
 							}
 							if (value > 1000) {
-								return value / 1000 + 'K';
+								return numeral(value / 1000).format() + 'K';
 							}
 							return value;
 						}
@@ -292,7 +290,7 @@
 			touchLineA(e) {
 				canvaLineA.showToolTip(e, {
 					format: function(item, category) {
-						return `${item.name}:${_self.toThousand(item.data)}${_self.compoundParameter.present.unit}`;
+						return `${item.name}:${numeral(item.data).format()}${_self.compoundParameter.present.unit}`;
 					}
 				});
 			}

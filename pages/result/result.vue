@@ -14,7 +14,7 @@
 				<view class="flex justify-between padding-lr-xl py-1">
 					<view>本金总额</view>
 					<view>
-						<text class="text-green">{{toThousand(compoundParameter.present.value)}}</text>
+						<text class="text-green">{{totalPresent}}</text>
 						<text>{{compoundParameter.present.unit}}</text>
 					</view>
 				</view>
@@ -56,6 +56,8 @@
 </template>
 
 <script>
+	let numeral = require('numeral');
+	numeral.defaultFormat('0,0.00');
 	export default {
 		data() {
 			return {
@@ -65,11 +67,13 @@
 				tableList: [] //保存每一期数据,
 			}
 		},
+		computed:{
+			totalPresent(){
+				return numeral(this.compoundParameter.present.value).format();
+			}
+		},
 		onLoad() {
 			this.calculate();
-		},
-		onReady() {
-
 		},
 		methods: {
 			toCharts() {
@@ -99,14 +103,9 @@
 				let tempFutureValue = 0;
 				let dealN = this.dealUnit(iUnit, nUnit);
 				tempFutureValue = p * (1 + i / 100) ** dealN(n);
-				tempFutureValue = Math.trunc(tempFutureValue);
-				this.futureValue = this.dealNumber(
-					this.toThousand(tempFutureValue)
-				);
-				this.totalRevenue = this.dealNumber(
-					this.toThousand(tempFutureValue - p)
-				);
-				if (this.futureValue == '天文数字') {
+				this.futureValue = numeral(tempFutureValue).format()
+				this.totalRevenue = numeral(tempFutureValue - p).format();
+				if (Number.isNaN(this.totalRevenue)) {
 					return;
 				}
 				//保存上一期本息和
@@ -116,14 +115,12 @@
 					let current = p * (1 + i / 100) ** dealN(j);
 					this.tableList.push({
 						id: j, //期数
-						p: p, //初始本金
-						currentI: Math.trunc(current - previous), //本期利息
-						currentTotal: Math.trunc(current),
-						iTotal: Math.trunc(current - p), //总利息
+						currentI: numeral(current - previous).format(), //本期利息
+						currentTotal: numeral(current).format(),
+						iTotal: numeral(current - p).format() //总利息
 					})
 				}
 			},
-
 			/**
 			 * @param {Object} iUnit
 			 * @param {Object} nUnit
@@ -157,20 +154,6 @@
 						}
 						break;
 				}
-			},
-			toThousand(num) {
-				return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
-			},
-			dealNumber(str) {
-				if (str.indexOf('.') !== -1) {
-					return str.replace(
-						str.substring(str.indexOf('.') + 3, str.indexOf('e')),
-						''
-					);
-				} else if (str.indexOf('Infinity') !== -1) {
-					return '天文数字';
-				}
-				return str;
 			}
 		}
 	}

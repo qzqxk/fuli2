@@ -60,7 +60,7 @@
 				console.log(res.target);
 			}
 			return {
-				title: '极简复利计算器',
+				title: '复利计算器',
 				path: '/pages/compound/compound'
 			};
 		},

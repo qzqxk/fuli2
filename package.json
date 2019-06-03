@@ -1,0 +1,23 @@
+{
+  "name": "fuli2",
+  "version": "1.0.0",
+  "description": "本项目是一个uni-app，使用HBuilderX工具打开即可。因项目中运用了微信小程序组件，所以只能运行在微信小程序端。",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiuyuesanqiu/fuli2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jiuyuesanqiu/fuli2/issues"
+  },
+  "homepage": "https://github.com/jiuyuesanqiu/fuli2#readme",
+  "dependencies": {
+    "numeral": "^2.0.6"
+  }
+}
