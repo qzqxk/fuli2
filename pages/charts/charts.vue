@@ -8,7 +8,7 @@
 				<view class="flex-sub">{{compoundParameter.i.unit}}</view>
 			</view>
 			<view class="flex ml-3 pr-3 py-2 border-bottom text-center" v-for="(item,index) in contrastData" :key="index">
-				<view class="text-green flex-sub text-left">{{names[index]}}</view>
+				<view class="text-green flex-sub text-left" :style="{color:sequence[index].color}">{{sequence[index].name}}</view>
 				<view class="flex-twice flex-shrink-0">{{numberFormat(item.p)}}</view>
 				<view class="flex-sub">{{item.n}}</view>
 				<view class="flex-sub">{{item.i}}%</view>
@@ -28,8 +28,8 @@
 		<view class="padding mt-3">
 			<button class="weui-btn" type="primary" @tap="goHome">回到首页</button>
 		</view>
+		
 		<!-- 添加对比数据 -->
-
 		<van-dialog async-close use-slot :show="show" show-cancel-button confirmButtonText="对比" @confirm="dialogConfirm"
 		 @cancel="onCancel">
 			<view class="cu-bar bg-white justify-end border-bottom">
@@ -79,19 +79,26 @@
 				cWidth: '',
 				cHeight: '',
 				pixelRatio: 1,
-				columns: uni.getStorageSync('saveHistory'),
-				isEmpty: uni.getStorageSync('saveHistory').length == 0,
 				LineA: {},
-				colors: ['#1592ff', '#2ac35a', '#f74963', '#ffce11', '#8342e7'],
-				i: 0, //i是colors的index
-				maxLine: 5, //最大对比数量为5
 				contrastP: '', //对比的本金
 				contrastI: '', //对比的利率
 				contrastN: '', //对比的期数
 				show: false,
 				chartShow: true,
 				contrastData: [], //所有要对比的数据
-				names: ['A', 'B', 'C', 'D'] //每条数据的序号
+				sequence: [{
+					name:'A',
+					color:'#1890ff'
+				},{
+					name:'B',
+					color:'#2fc25b'
+				},{
+					name:'C',
+					color:'#facc14'
+				},{
+					name:'D',
+					color:'#f04864'
+				}], //每条数据的序号
 			}
 		},
 		computed: {
@@ -111,7 +118,7 @@
 			this.redraw();
 		},
 		methods: {
-			numberFormat(num){
+			numberFormat(num) {
 				return numeral(num).format();
 			},
 			goHome() {
@@ -189,7 +196,7 @@
 						seriesData.push((p * (1 + i / 100) ** dealN(j)).toFixed(2));
 					}
 					series.push({
-						name: this.names[k],
+						name: this.sequence[k].name,
 						data: seriesData
 					});
 				}
@@ -250,7 +257,7 @@
 					type: 'line',
 					fontSize: 11,
 					dataPointShape: false,
-					dataLabel:false,
+					dataLabel: false,
 					background: '#f7f7f7',
 					pixelRatio: _self.pixelRatio,
 					categories: chartData.categories,
@@ -261,8 +268,8 @@
 					},
 					yAxis: {
 						min: 0.01,
-						splitNumber:2,
-						gridColor:'#e5e5e5',
+						splitNumber: 2,
+						gridColor: '#e5e5e5',
 						format: (value) => {
 							if (value > 100000000) {
 								return numeral(value / 100000000).format() + 'B';
@@ -281,16 +288,13 @@
 					},
 					width: _self.cWidth * _self.pixelRatio,
 					height: _self.cHeight * _self.pixelRatio,
-					extra: {
-						lineStyle: 'straight',
-					}
 				});
 
 			},
 			touchLineA(e) {
 				canvaLineA.showToolTip(e, {
 					format: function(item, category) {
-						return `${item.name}:${numeral(item.data).format()}${_self.compoundParameter.present.unit}`;
+						return `${item.name} 第${category}期 ${numeral(item.data).format()}${_self.compoundParameter.present.unit}`;
 					}
 				});
 			}
