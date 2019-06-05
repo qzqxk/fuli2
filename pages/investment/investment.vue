@@ -36,8 +36,8 @@
 			</van-cell-group>
 		</view>
 		<view class="mx-3 mt-5">
-			<button class="weui-btn" type="primary" @tap="calculate">计算</button>
-			<button class="weui-btn text-primary" type="default" @tap="reset">复位</button>
+			<button class="weui-btn" type="primary" @tap="calculate">开始计算</button>
+			<button class="weui-btn text-primary" type="default" @tap="reset">清空输入</button>
 		</view>
 	</view>
 </template>
@@ -58,11 +58,6 @@
 				totalRevenue: "点击计算得出",
 				totalAssets: "点击计算得出"
 			}
-		},
-		onShow() {
-			this.principal = "点击计算得出";
-			this.totalRevenue = "点击计算得出";
-			this.totalAssets = "点击计算得出";
 		},
 		onShareAppMessage(res) {
 			if (res.from === 'button') {
