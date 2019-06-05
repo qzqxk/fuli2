@@ -5,7 +5,7 @@
 				<picker @change="bindPickerChange" :range="columns">
 					<van-cell title="定投周期" :value="unit" value-class="value-class" size="large" is-link></van-cell>
 				</picker>
-				<van-field :value=" fixedMoney " @input="onFixedMoneyInput" required clearable label="每期定投" maxlength="6" type="number"
+				<van-field :value=" fixedMoney " @input="onFixedMoneyInput" required clearable label="每期定投"  type="number"
 				 input-align="right" use-icon-slot size="large" placeholder="每期定投金额">
 					<view slot="icon">
 						元
@@ -36,13 +36,16 @@
 			</van-cell-group>
 		</view>
 		<view class="mx-3 mt-5">
-			<button class="weui-btn" type="primary" :disabled="disabled" @tap="calculate">计算</button>
+			<button class="weui-btn" type="primary" @tap="calculate">计算</button>
 			<button class="weui-btn text-primary" type="default" @tap="reset">复位</button>
 		</view>
 	</view>
 </template>
 
 <script>
+	let numeral = require('numeral');
+	numeral.defaultFormat('0,0.00');
+	
 	export default {
 		data() {
 			return {
@@ -66,27 +69,11 @@
 				console.log(res.target)
 			}
 			return {
-				title: '极简定投计算器',
+				title: '定投计算器',
 				path: '/pages/investment/investment'
 			}
 		},
 		methods: {
-			toThousand(num) {
-				return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
-			},
-
-			dealNumber(str) {
-				if (str.indexOf('.') !== -1) {
-					return str.replace(str.substring(str.indexOf('.') + 3, str.indexOf('e')), '');
-				} else if (str.indexOf("Infinity") !== -1) {
-					return "阁下这是要逆天吗？"
-				}
-				return str;
-			},
-
-			onChange() {
-				console.log("change")
-			},
 			onFixedMoneyInput(e) {
 				this.fixedMoney = e.detail;
 			},
@@ -97,6 +84,27 @@
 				this.expectInterest = e.detail;
 			},
 			calculate() {
+				//校验是否填写必要参数
+				if (this.fixedMoney=='') {
+					uni.showToast({
+						title: '请输入每期定投金额',
+						icon: 'none'
+					})
+					return;
+				} else if (this.fixedTime=='') {
+					uni.showToast({
+						title: '请输入定投年限',
+						icon: 'none'
+					})
+					return;
+				} else if (this.expectInterest=='') {
+					uni.showToast({
+						title: '请输入收益率',
+						icon: 'none'
+					})
+					return;
+				}
+				
 				let y = 1 / 12;
 				let z = this.fixedTime * 12;
 				if (this.unit === '每周') {
@@ -105,11 +113,9 @@
 				}
 				let x = Math.pow(1 + this.expectInterest / 100, y);
 				let amount = Math.floor(this.fixedMoney * x * (Math.pow(x, z) - 1) / (x - 1));
-				this.principal = this.toThousand(z * this.fixedMoney) + '元';
-				let tempTotalRevenue = this.toThousand(amount - z * this.fixedMoney) + '元';
-				this.totalRevenue = this.dealNumber(tempTotalRevenue);
-				let tempTotalAssets = this.toThousand(amount) + '元';
-				this.totalAssets = this.dealNumber(tempTotalAssets);
+				this.principal = numeral(z * this.fixedMoney).format() + '元';
+				this.totalRevenue = numeral(amount - z * this.fixedMoney).format() + '元';
+				this.totalAssets = numeral(amount).format() + '元';
 			},
 			bindPickerChange(e) {
 				this.unit = this.columns[e.detail.value];
@@ -122,11 +128,6 @@
 				this.principal = "点击计算得出";
 				this.totalRevenue = "点击计算得出";
 				this.totalAssets = "点击计算得出";
-			}
-		},
-		computed: {
-			disabled() {
-				return !(this.fixedMoney && this.fixedTime && this.expectInterest);
 			}
 		}
 	}
