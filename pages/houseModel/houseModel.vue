@@ -20,8 +20,8 @@
 		<view class="mt-3">
 			<van-cell-group>
 				<van-field :value="expenses" required clearable @input="onExpensesInput" label="税费" type="digit" input-align="right"
-				 use-icon-slot size="large" placeholder="请输入税费">
-					<view slot="icon">万</view>
+				 use-icon-slot size="large" placeholder="请输入税费比例">
+					<view slot="icon">%</view>
 				</van-field>
 				<van-field :value="loanService" required clearable @input="onLoanServiceInput" label="贷款服务费" type="digit"
 				 input-align="right" use-icon-slot size="large" placeholder="请输入贷款担保服务费比例">
@@ -74,6 +74,7 @@
 				<van-cell title="预期房屋售价" :value="houseSell" size="large" value-class="value-class"></van-cell>
 				<van-cell title="每月还款" :value="monthPay" size="large" value-class="value-class"></van-cell>
 				<van-cell title="初期总投资" :value="totalInvestment" size="large" value-class="value-class"></van-cell>
+				<van-cell title="现金的现金回报率" :value="cashRewards" size="large" value-class="value-class"></van-cell>
 				<van-cell title="投资回报率" :value="investment" size="large" value-class="value-class"></van-cell>
 				<van-cell title="年化回报率" :value="annualized" size="large" value-class="value-class"></van-cell>
 			</i-panel>
@@ -102,11 +103,11 @@
 					length: 30
 				}, (v, k) => k + 1),
 				loansRateColumns: [{
-						key: '基准利率7折',
+						key: '基准利率7折(3.43%)',
 						value: 3.43
 					},
 					{
-						key: '基准利率8折',
+						key: '基准利率8折(3.92%)',
 						value: 3.92
 					},
 					{
@@ -166,8 +167,8 @@
 						value: 6.86
 					}
 				],
-				//税费
-				expenses: 5,
+				//税费比例
+				expenses: 3,
 				otherCost: 5000,
 				//贷款服务费
 				loanService: 1.5,
@@ -189,7 +190,8 @@
 				monthPay: '点击计算得出',
 				totalInvestment: '点击计算得出',
 				investment: '点击计算得出',
-				annualized: '点击计算得出'
+				annualized: '点击计算得出',
+				cashRewards:'点击计算得出'
 			}
 		},
 		onShareAppMessage(res) {
@@ -307,7 +309,7 @@
 				let makeMoney = tempHouseSell - damage - loanAmount;
 				//总投资
 				this.totalInvestment =
-					this.expenses * 10000 +
+					this.expenses/100 * this.dealPrice +
 					this.expectRenovationCost * 10000 +
 					initialPay +
 					(dealPrice * this.agentRate) / 100 +
@@ -316,6 +318,8 @@
 				let tempInvestment = makeMoney / this.totalInvestment;
 				//总投资回报率
 				this.investment = (100 * tempInvestment).toFixed(2) + '%';
+				//现金的现金回报率
+				this.cashRewards = (this.expectMothRent*12/this.totalInvestment*100).toFixed(2)+'%';
 				//年化回报率
 				let tempAnnualized =
 					Math.pow(tempInvestment, 1 / this.expectHoldTime) - 1;
@@ -339,6 +343,7 @@
 				this.totalInvestment = '点击计算得出';
 				this.investment = '点击计算得出';
 				this.annualized = '点击计算得出';
+				this.cashRewards = '点击计算得出';
 			}
 		},
 		computed: {
