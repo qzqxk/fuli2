@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<van-cell-group>
-			<van-field :value="nstalmentAmount" @input="onInstalmentAmountInput" required clearable label="分期金额" maxlength="10"
+			<van-field :value="instalmentAmount" @input="onInstalmentAmountInput" required clearable label="分期金额" maxlength="10"
 			 type="number" input-align="right" use-icon-slot size="large" placeholder="请输入分期金额">
 				<view slot="icon">元</view>
 			</van-field>

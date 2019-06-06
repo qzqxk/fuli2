@@ -72,14 +72,13 @@
 	import uCharts from '@/components/u-charts/u-charts.js';
 	var _self;
 	var canvaLineA = null;
+	let cWidth = '';
+	let cHeight = '';
+	let pixelRatio = 1;
 	export default {
 		data() {
 			return {
 				compoundParameter: uni.getStorageSync("compoundParameter"),
-				cWidth: '',
-				cHeight: '',
-				pixelRatio: 1,
-				LineA: {},
 				contrastP: '', //对比的本金
 				contrastI: '', //对比的利率
 				contrastN: '', //对比的期数
@@ -108,8 +107,8 @@
 		},
 		onLoad() {
 			_self = this;
-			this.cWidth = uni.upx2px(750);
-			this.cHeight = uni.upx2px(700);
+			cWidth = uni.upx2px(750);
+			cHeight = uni.upx2px(700);
 			this.contrastData.push({
 				p: this.compoundParameter.present.value,
 				i: this.compoundParameter.i.value,
@@ -259,7 +258,7 @@
 					dataPointShape: false,
 					dataLabel: false,
 					background: '#f7f7f7',
-					pixelRatio: _self.pixelRatio,
+					pixelRatio: pixelRatio,
 					categories: chartData.categories,
 					series: chartData.series,
 					xAxis: {
@@ -286,8 +285,8 @@
 							return value;
 						}
 					},
-					width: _self.cWidth * _self.pixelRatio,
-					height: _self.cHeight * _self.pixelRatio,
+					width: _self.cWidth * pixelRatio,
+					height: _self.cHeight * pixelRatio,
 				});
 
 			},

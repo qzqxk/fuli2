@@ -5,13 +5,13 @@
 			"style": {
 				"navigationBarTitleText": "复利计算器"
 			}
-		},{
+		}, {
 			"path": "pages/charts/charts",
 			"style": {}
 		}, {
 			"path": "pages/result/result",
 			"style": {}
-		},  {
+		}, {
 			"path": "pages/investment/investment",
 			"style": {
 				"navigationBarTitleText": "定投计算器"
@@ -30,11 +30,6 @@
 			"path": "pages/installment/installment",
 			"style": {
 				"navigationBarTitleText": "分期利率计算器"
-			}
-		}, {
-			"path": "pages/investmentChart/investmentChart",
-			"style": {
-				"navigationBarTitleText": "计算明细"
 			}
 		}
 	],
