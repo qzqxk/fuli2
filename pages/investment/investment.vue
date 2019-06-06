@@ -5,34 +5,56 @@
 				<picker @change="bindPickerChange" :range="columns">
 					<van-cell title="定投周期" :value="unit" value-class="value-class" size="large" is-link></van-cell>
 				</picker>
-				<van-field :value=" fixedMoney " @input="onFixedMoneyInput" required clearable label="每期定投"  type="number"
-				 input-align="right" use-icon-slot size="large" placeholder="每期定投金额">
-					<view slot="icon">
-						元
-					</view>
+				<van-field
+					:value=" fixedMoney "
+					@input="onFixedMoneyInput"
+					required
+					clearable
+					label="每期定投"
+					type="number"
+					input-align="right"
+					use-icon-slot
+					size="large"
+					placeholder="每期定投金额"
+				>
+					<view slot="icon">元</view>
 				</van-field>
-				<van-field :value=" fixedTime " required clearable label="定投年限" maxlength="3" type="number" input-align="right"
-				 @input="onFixedTimeInput" use-icon-slot size="large" placeholder="打算定投多久">
-					<view slot="icon">
-						年
-					</view>
+				<van-field
+					:value=" fixedTime "
+					required
+					clearable
+					label="定投年限"
+					maxlength="3"
+					type="number"
+					input-align="right"
+					@input="onFixedTimeInput"
+					use-icon-slot
+					size="large"
+					placeholder="打算定投多久"
+				>
+					<view slot="icon">年</view>
 				</van-field>
-				<van-field :value=" expectInterest " required clearable @input="onExpectInterestInput" label="年化收益率" type="digit"
-				 input-align="right" use-icon-slot size="large" placeholder="预期年化收益率">
-					<view slot="icon">
-						%
-					</view>
+				<van-field
+					:value=" expectInterest "
+					required
+					clearable
+					@input="onExpectInterestInput"
+					label="年化收益率"
+					type="digit"
+					input-align="right"
+					use-icon-slot
+					size="large"
+					placeholder="预期年化收益率"
+				>
+					<view slot="icon">%</view>
 				</van-field>
 			</van-cell-group>
 		</view>
 		<view class="mt-5">
 			<van-cell-group>
-				<van-cell title="投入总本金" :value="principal" size="large" value-class="value-class">
-				</van-cell>
-				<van-cell title="定投总收益" :value="totalRevenue" size="large" value-class="value-class">
-				</van-cell>
-				<van-cell title="期末总资产" :value="totalAssets" size="large" value-class="value-class">
-				</van-cell>
+				<van-cell title="投入总本金" :value="principal" size="large" value-class="value-class"></van-cell>
+				<van-cell title="定投总收益" :value="totalRevenue" size="large" value-class="value-class"></van-cell>
+				<van-cell title="期末总资产" :value="totalAssets" size="large" value-class="value-class"></van-cell>
 			</van-cell-group>
 		</view>
 		<view class="mx-3 mt-5">
@@ -43,91 +65,92 @@
 </template>
 
 <script>
-	let numeral = require('numeral');
-	numeral.defaultFormat('0,0.00');
-	
-	export default {
-		data() {
-			return {
-				fixedMoney: '',
-				fixedTime: '',
-				unit: '每月',
-				expectInterest: '',
-				columns: ['每月', '每周'],
-				principal: "点击计算得出",
-				totalRevenue: "点击计算得出",
-				totalAssets: "点击计算得出"
-			}
-		},
-		onShareAppMessage(res) {
-			if (res.from === 'button') {
-				console.log(res.target)
-			}
-			return {
-				title: '定投计算器',
-				path: '/pages/investment/investment'
-			}
-		},
-		methods: {
-			onFixedMoneyInput(e) {
-				this.fixedMoney = e.detail;
-			},
-			onFixedTimeInput(e) {
-				this.fixedTime = e.detail;
-			},
-			onExpectInterestInput(e) {
-				this.expectInterest = e.detail;
-			},
-			calculate() {
-				//校验是否填写必要参数
-				if (this.fixedMoney=='') {
-					uni.showToast({
-						title: '请输入每期定投金额',
-						icon: 'none'
-					})
-					return;
-				} else if (this.fixedTime=='') {
-					uni.showToast({
-						title: '请输入定投年限',
-						icon: 'none'
-					})
-					return;
-				} else if (this.expectInterest=='') {
-					uni.showToast({
-						title: '请输入收益率',
-						icon: 'none'
-					})
-					return;
-				}
-				
-				let y = 1 / 12;
-				let z = this.fixedTime * 12;
-				if (this.unit === '每周') {
-					y = 1 / 52;
-					z = this.fixedTime * 52;
-				}
-				let x = Math.pow(1 + this.expectInterest / 100, y);
-				let amount = Math.floor(this.fixedMoney * x * (Math.pow(x, z) - 1) / (x - 1));
-				this.principal = numeral(z * this.fixedMoney).format() + '元';
-				this.totalRevenue = numeral(amount - z * this.fixedMoney).format() + '元';
-				this.totalAssets = numeral(amount).format() + '元';
-			},
-			bindPickerChange(e) {
-				this.unit = this.columns[e.detail.value];
-			},
-			reset() {
-				this.fixedMoney = '';
-				this.fixedTime = '';
-				this.unit = '每月';
-				this.expectInterest = '';
-				this.principal = "点击计算得出";
-				this.totalRevenue = "点击计算得出";
-				this.totalAssets = "点击计算得出";
-			}
-		}
-	}
+let numeral = require("numeral");
+numeral.defaultFormat("0,0.00");
+
+export default {
+  data() {
+    return {
+      fixedMoney: "",
+      fixedTime: "",
+      unit: "每月",
+      expectInterest: "",
+      columns: ["每月", "每周"],
+      principal: "点击计算得出",
+      totalRevenue: "点击计算得出",
+      totalAssets: "点击计算得出"
+    };
+  },
+  onShareAppMessage(res) {
+    if (res.from === "button") {
+      console.log(res.target);
+    }
+    return {
+      title: "定投计算器",
+      path: "/pages/investment/investment"
+    };
+  },
+  methods: {
+    onFixedMoneyInput(e) {
+      this.fixedMoney = e.detail;
+    },
+    onFixedTimeInput(e) {
+      this.fixedTime = e.detail;
+    },
+    onExpectInterestInput(e) {
+      this.expectInterest = e.detail;
+    },
+    calculate() {
+      //校验是否填写必要参数
+      if (this.fixedMoney == "") {
+        uni.showToast({
+          title: "请输入每期定投金额",
+          icon: "none"
+        });
+        return;
+      } else if (this.fixedTime == "") {
+        uni.showToast({
+          title: "请输入定投年限",
+          icon: "none"
+        });
+        return;
+      } else if (this.expectInterest == "") {
+        uni.showToast({
+          title: "请输入收益率",
+          icon: "none"
+        });
+        return;
+      }
+
+      let y = 1 / 12;
+      let z = this.fixedTime * 12;
+      if (this.unit === "每周") {
+        y = 1 / 52;
+        z = this.fixedTime * 52;
+      }
+      let x = Math.pow(1 + this.expectInterest / 100, y);
+      let amount = Math.floor(
+        (this.fixedMoney * x * (Math.pow(x, z) - 1)) / (x - 1)
+      );
+      this.principal = numeral(z * this.fixedMoney).format() + "元";
+      this.totalRevenue = numeral(amount - z * this.fixedMoney).format() + "元";
+      this.totalAssets = numeral(amount).format() + "元";
+    },
+    bindPickerChange(e) {
+      this.unit = this.columns[e.detail.value];
+    },
+    reset() {
+      this.fixedMoney = "";
+      this.fixedTime = "";
+      this.unit = "每月";
+      this.expectInterest = "";
+      this.principal = "点击计算得出";
+      this.totalRevenue = "点击计算得出";
+      this.totalAssets = "点击计算得出";
+    }
+  }
+};
 </script>
 
 <style>
-
 </style>
