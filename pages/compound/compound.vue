@@ -25,7 +25,7 @@
 			</picker>
 		</view>
 		<view class="cu-form-group">
-			<view class="title">收益率</view>
+			<view class="title">利率</view>
 			<input placeholder="请输入" v-model="expectInterest" type="digit"></input>
 			<picker @change="bindExpectInterestUnitChange" :range="expectInterestColumns">
 				<view class="action">
