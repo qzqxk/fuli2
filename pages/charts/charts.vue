@@ -285,8 +285,8 @@
 							return value;
 						}
 					},
-					width: _self.cWidth * pixelRatio,
-					height: _self.cHeight * pixelRatio,
+					width: cWidth * pixelRatio,
+					height: cHeight * pixelRatio,
 				});
 
 			},
