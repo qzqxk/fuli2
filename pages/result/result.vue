@@ -156,9 +156,9 @@
 
 				let option = this.compoundParameter.option;
 				let previous = 0;
+				let tempFutureValue = 0;
 				switch (option) {
 					case 0:
-						let tempFutureValue = 0;
 						let dealN = this.dealUnit(iUnit, nUnit);
 						tempFutureValue = p * (1 + i / 100) ** dealN(n);
 						this.title.key = "期末本息和";
@@ -183,8 +183,6 @@
 						}
 						break;
 					case 1:
-						/* f = p * i ** n;
-						i = (f/p)**(1/n) */
 						i = (f / p) ** (1 / n);
 						this.title.key = nUnit + '利率';
 						this.title.value = Math.floor((i - 1) * 10000) / 100;
@@ -235,13 +233,16 @@
 						}
 						break;
 					case 3:
-						n = this.getN(p,f,i);
+						n = Number(this.getN(p,f,i));
 						this.title.key = '期数';
-						this.title.value = Number(n);
+						this.title.value = n;
 						this.title.unit = this.compoundParameter.i.unit.substr(0,1);
-						this.totalRevenue = numeral(f - p).format();
-						this.totalYieldRate = numeral((f - p) / p * 100).format();
-						this.compoundParameter.n.value = this.title.value;
+						
+						tempFutureValue = p * (1 + i / 100) ** n;
+						this.compoundParameter.f.value = tempFutureValue;
+						this.totalRevenue = numeral(tempFutureValue - p).format();
+						this.totalYieldRate = numeral((tempFutureValue - p) / p * 100).format();
+						this.compoundParameter.n.value = Math.ceil(n);
 						this.compoundParameter.n.unit = this.title.unit;
 						if (Number.isNaN(p)) {
 							return;
@@ -287,7 +288,7 @@
 					n -= incre;
 					incre *= 1 / 2;
 				}
-				return n.toFixed();
+				return Math.floor(n*100)/100;
 			},
 			/**
 			 * @param {Object} iUnit
