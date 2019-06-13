@@ -113,7 +113,7 @@
 				return numeral(this.compoundParameter.f.value).format();
 			}
 		},
-		onLoad() {
+		onLoad(option) {
 			if (option.parameter != undefined) {
 				this.compoundParameter = JSON.parse(option.parameter);
 			}
@@ -237,7 +237,7 @@
 					case 3:
 						n = this.getN(p,f,i);
 						this.title.key = '期数';
-						this.title.value = n;
+						this.title.value = Number(n);
 						this.title.unit = this.compoundParameter.i.unit.substr(0,1);
 						this.totalRevenue = numeral(f - p).format();
 						this.totalYieldRate = numeral((f - p) / p * 100).format();
@@ -287,7 +287,7 @@
 					n -= incre;
 					incre *= 1 / 2;
 				}
-				return Math.ceil(n);
+				return n.toFixed();
 			},
 			/**
 			 * @param {Object} iUnit
@@ -331,5 +331,8 @@
 	.scroll-view-item_H {
 		display: inline-block;
 		width: 150%;
+	}
+	.text-small{
+		font-size: 60upx;
 	}
 </style>
