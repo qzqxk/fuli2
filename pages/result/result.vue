@@ -114,9 +114,18 @@
 			}
 		},
 		onLoad() {
+			if (option.parameter != undefined) {
+				this.compoundParameter = JSON.parse(option.parameter);
+			}
 			this.calculate();
 		},
 		methods: {
+			onShareAppMessage() {
+				return {
+					title: '复利计算器',
+					path: `/pages/result/result?parameter=${JSON.stringify(this.compoundParameter)}`
+				}
+			},
 			toCharts() {
 				uni.setStorageSync('compoundParameter',this.compoundParameter);
 				uni.navigateTo({
