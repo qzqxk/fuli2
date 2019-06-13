@@ -7,19 +7,18 @@
 			}
 		}, {
 			"path": "pages/charts/charts",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "计算图表"
+			}
 		}, {
 			"path": "pages/result/result",
-			"style": {}
-		}, {
-			"path": "pages/investment/investment",
 			"style": {
-				"navigationBarTitleText": "定投计算器"
+				"navigationBarTitleText": "计算结果"
 			}
 		}, {
 			"path": "pages/more/more",
 			"style": {
-				"navigationBarTitleText": "更多"
+				"navigationBarTitleText": "更多计算"
 			}
 		}, {
 			"path": "pages/houseModel/houseModel",
@@ -57,22 +56,15 @@
 		"selectedColor": "#09bb07",
 		"backgroundColor": "#FAFAFA",
 		"list": [{
-				"pagePath": "pages/compound/compound",
-				"text": "复利计算",
-				"iconPath": "static/oneMoney.png",
-				"selectedIconPath": "static/oneMoneySelect.png"
-			},
-			{
-				"pagePath": "pages/investment/investment",
-				"text": "定投计算",
-				"iconPath": "static/moreMoney.png",
-				"selectedIconPath": "static/moreMoneySelect.png"
-			}, {
-				"pagePath": "pages/more/more",
-				"text": "更多",
-				"iconPath": "static/more.png",
-				"selectedIconPath": "static/moreSelect.png"
-			}
-		]
+			"pagePath": "pages/compound/compound",
+			"text": "复利计算",
+			"iconPath": "static/oneMoney.png",
+			"selectedIconPath": "static/oneMoneySelect.png"
+		}, {
+			"pagePath": "pages/more/more",
+			"text": "更多计算",
+			"iconPath": "static/more.png",
+			"selectedIconPath": "static/moreSelect.png"
+		}]
 	}
 }

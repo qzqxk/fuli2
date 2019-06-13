@@ -1,43 +1,23 @@
 <template>
 	<view>
 		<guide v-if="showGuide"></guide>
+		<nx-cell icon="/static/moreMoneySelect.png" border title="定投计算器" @tap="goCompound"></nx-cell>
 		<fuli-cell url="../installment/installment" title="分期利率计算器" icon="/static/bag.png"></fuli-cell>
 		<fuli-cell url="../houseModel/houseModel" title="二手房投资估算器" icon="/static/home.png"></fuli-cell>
 		<button open-type="contact">
 			<fuli-cell title="给开发者留言" icon="/static/service.png"></fuli-cell>
 		</button>
-		<view class="d-flex fuli-cell van-hairline--bottom" hover-class="fuli-cell-active" @tap="tipAttention">
-			<view class="fuli-cell-left d-flex align-items-center">
-				<image class="fuli-cell-icon" src="/static/expect.png"></image>
-			</view>
-			<view class="fuli-cell-right flex-grow-1 d-flex">
-				<view class="flex-grow-1">
-					<text>更多功能敬请期待</text>
-				</view>
-				<van-icon name="arrow" color="#888888" class="d-flex align-items-center"></van-icon>
-			</view>
-		</view>
+		<button open-type="share">
+			<nx-cell icon="/static/share.png" title="分享给好友"></nx-cell>
+		</button>
 	</view>
 </template>
 
 <script>
-	import guide from '../../components/guide.vue'
-	
+	import nxCell from '../../components/nx-cell.vue';
 	export default {
 		data() {
-			return {
-				showGuide: false
-			}
-		},
-		onShareAppMessage(res) {
-			if (res.from === 'button') {
-				console.log(res.target);
-			}
-
-			return {
-				title: '极简复利计算器',
-				path: '/pages/compound/compound'
-			};
+			return {}
 		},
 		methods: {
 			tipAttention() {
@@ -45,10 +25,21 @@
 				setTimeout(() => {
 					this.showGuide = false;
 				}, 4000)
-			}
+			},
+			goCompound() {
+				wx.navigateToMiniProgram({
+					appId: 'wxd44da5e300b3e1a0'
+				})
+			},
+			onShareAppMessage() {
+				return {
+					title: '复利计算器',
+					path: '/pages/compound/compound'
+				}
+			},
 		},
-		components:{
-			guide
+		components: {
+			nxCell
 		}
 	}
 </script>
