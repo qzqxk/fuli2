@@ -1,8 +1,8 @@
 <template>
-	<view class="text-df cu-card">
-		<view class="cu-item p-5">
+	<view class="text-df cu-card px-3">
+		<view class="p-5 bg-white rounded">
 			<view class="text-center">
-				<view class="p-3 text-xl">
+				<view class="text-xl">
 					{{title.key}}
 				</view>
 				<view class="text-green">
@@ -62,7 +62,10 @@
 				</view>
 			</view>
 		</view>
-		<view class="padding mt-5">
+		<view class="my-3">
+			<ad unit-id="adunit-64fe28fc7b3797b6"></ad>
+		</view>
+		<view class="my-5">
 			<button class="weui-btn" type="primary" open-type="share">去分享</button>
 			<button class="weui-btn" type="default" @tap="goHome">回到首页</button>
 		</view>
@@ -81,7 +84,7 @@
 				title: {
 					key: '',
 					value: 0,
-					unit: 0
+					unit: '元'
 				}
 			}
 		},
