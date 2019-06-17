@@ -1,7 +1,6 @@
 <template>
 	<view>
 		<guide v-if="showGuide"></guide>
-		<nx-cell icon="/static/moreMoneySelect.png" border title="定投计算器" @tap="goCompound"></nx-cell>
 		<fuli-cell url="../installment/installment" title="分期利率计算器" icon="/static/bag.png"></fuli-cell>
 		<fuli-cell url="../houseModel/houseModel" title="二手房投资估算器" icon="/static/home.png"></fuli-cell>
 		<button open-type="contact">
@@ -18,6 +17,7 @@
 
 <script>
 	import nxCell from '../../components/nx-cell.vue';
+	let interstitialAd = null
 	export default {
 		data() {
 			return {}
@@ -28,11 +28,6 @@
 				setTimeout(() => {
 					this.showGuide = false;
 				}, 4000)
-			},
-			goCompound() {
-				wx.navigateToMiniProgram({
-					appId: 'wxd44da5e300b3e1a0'
-				})
 			},
 			onShareAppMessage() {
 				return {

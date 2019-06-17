@@ -17,7 +17,5 @@
     "url": "https://github.com/jiuyuesanqiu/fuli2/issues"
   },
   "homepage": "https://github.com/jiuyuesanqiu/fuli2#readme",
-  "dependencies": {
-    "numeral": "^2.0.6"
-  }
+  "dependencies": {}
 }

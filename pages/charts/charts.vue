@@ -124,7 +124,7 @@
 			},
 			goHome() {
 				uni.switchTab({
-					url: '/pages/compound/compound'
+					url: '/pages/index/index'
 				});
 			},
 			onCancel(e) {

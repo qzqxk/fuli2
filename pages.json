@@ -1,7 +1,7 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/compound/compound",
+			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "复利计算器"
 			}
@@ -30,7 +30,18 @@
 			"style": {
 				"navigationBarTitleText": "分期利率计算器"
 			}
+		}, {
+			"path": "pages/fixedInvestment/fixedInvestment",
+			"style": {
+				"navigationBarTitleText": "定投计算器"
+			}
+		}, {
+			"path": "pages/fixedResult/fixedResult",
+			"style": {
+				"navigationBarTitleText": "计算结果"
+			}
 		}
+
 	],
 	"globalStyle": {
 		"navigationBarTitleText": "复利计算器",
@@ -56,10 +67,15 @@
 		"selectedColor": "#09bb07",
 		"backgroundColor": "#FAFAFA",
 		"list": [{
-			"pagePath": "pages/compound/compound",
+			"pagePath": "pages/index/index",
 			"text": "复利计算",
 			"iconPath": "static/oneMoney.png",
 			"selectedIconPath": "static/oneMoneySelect.png"
+		}, {
+			"pagePath": "pages/fixedInvestment/fixedInvestment",
+			"text": "定投计算",
+			"iconPath": "static/moreMoney.png",
+			"selectedIconPath": "static/moreMoneySelect.png"
 		}, {
 			"pagePath": "pages/more/more",
 			"text": "更多计算",
