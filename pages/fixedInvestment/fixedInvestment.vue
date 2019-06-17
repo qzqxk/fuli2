@@ -1,6 +1,6 @@
 <template>
-	<view>
-		<view>
+	<view style="padding-bottom: 280upx;">
+		<view class="text-df">
 			<view v-if="calculationOptions!=2" class="cu-form-group">
 				<view class="title">
 					每期金额
@@ -78,7 +78,7 @@
 				fixedTime: '', //定投时长
 				expectInterest: '', //复合收益率
 				futureValue: '', //终值
-				active: 'bg-green shadow-blur', //按钮活跃样式
+				active: 'bg-green', //按钮活跃样式
 				inactive: 'line-gray shadow', //按钮不活跃样式
 				open: false
 			}

@@ -1,5 +1,5 @@
 <template>
-	<view class="text-df">
+	<view class="text-df" style="padding-bottom: 280upx;">
 		<view v-show="calculationOptions!=2" class="cu-form-group">
 			<view class="title">
 				本金
