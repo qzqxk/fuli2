@@ -70,9 +70,8 @@
 </template>
 
 <script>
-	let numeral = require('numeral');
-	numeral.defaultFormat('0,0.00');
 	import uCharts from '@/components/u-charts/u-charts.js';
+	import { formatMoney } from '../../common/js/formatNumber.js';
 	var _self;
 	var canvaLineA = null;
 	let cWidth = '';
@@ -121,7 +120,7 @@
 		},
 		methods: {
 			numberFormat(num) {
-				return numeral(num).format();
+				return formatMoney(num);
 			},
 			goHome() {
 				uni.switchTab({
@@ -274,16 +273,16 @@
 						gridColor: '#e5e5e5',
 						format: (value) => {
 							if (value > 100000000) {
-								return numeral(value / 100000000).format() + 'B';
+								return formatMoney(value / 100000000) + 'B';
 							}
 							if (value > 1000000) {
-								return numeral(value / 1000000).format() + 'M';
+								return formatMoney(value / 1000000) + 'M';
 							}
 							if (value > 10000) {
-								return numeral(value / 10000).format() + 'W';
+								return formatMoney(value / 10000) + 'W';
 							}
 							if (value > 1000) {
-								return numeral(value / 1000).format() + 'K';
+								return formatMoney(value / 1000) + 'K';
 							}
 							return value;
 						}
@@ -296,7 +295,7 @@
 			touchLineA(e) {
 				canvaLineA.showToolTip(e, {
 					format: function(item, category) {
-						return `${item.name} 第${category}期 ${numeral(item.data).format()}${_self.compoundParameter.present.unit}`;
+						return `${item.name} 第${category}期 ${formatMoney(item.data)}${_self.compoundParameter.present.unit}`;
 					}
 				});
 			}

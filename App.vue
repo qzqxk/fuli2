@@ -5,11 +5,11 @@
 
 <style>
 	/*每个页面公共css */
-	@import "common/main.css";
-	@import "common/icon.css";
-	@import "common/weui.wxss";
-	@import "common/bootstrap.wxss";
-	@import "common/vant.css";
+	@import "common/css/main.css";
+	@import "common/css/icon.css";
+	@import "common/css/weui.wxss";
+	@import "common/css/bootstrap.wxss";
+	@import "common/css/vant.css";
 
 	page {
 		background-color: #f7f7f7;

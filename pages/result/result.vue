@@ -58,27 +58,21 @@
 		<view class="my-3">
 			<ad unit-id="adunit-64fe28fc7b3797b6"></ad>
 		</view>
-		<view>
-			<scroll-view scroll-x="true" scroll-left="0">
-				<view class="scroll-view-item_H text-center text-df border radius">
-					<view class="py-2">
-						<view class="grid col-4">
-							<view>期数({{compoundParameter.n.unit}})</view>
-							<view>本期利息({{compoundParameter.present.unit}})</view>
-							<view>累计利息({{compoundParameter.present.unit}})</view>
-							<view>本息和({{compoundParameter.present.unit}})</view>
-						</view>
-					</view>
-					<view class="py-1" :class="index%2==0?'bg-gray light':''" v-for="(item,index) in tableList" :key="item.id">
-						<view class="grid col-4">
-							<view>{{item.id}}</view>
-							<view>{{item.currentI}}</view>
-							<view>{{item.iTotal}}</view>
-							<view>{{item.currentTotal}}</view>
-						</view>
-					</view>
+		<view class="text-center text-sm border radius">
+			<view class="py-2">
+				<view class="grid">
+					<view style="width: 20%;">期数({{compoundParameter.n.unit}})</view>
+					<view style="width: 40%;">本期利息({{compoundParameter.present.unit}})</view>
+					<view style="width: 40%;">本期本息和({{compoundParameter.present.unit}})</view>
 				</view>
-			</scroll-view>
+			</view>
+			<view class="py-1" :class="index%2==0?'bg-gray light':''" v-for="(item,index) in tableList" :key="item.id">
+				<view class="grid">
+					<view style="width: 20%;">{{item.id}}</view>
+					<view style="width: 40%;">{{item.currentI}}</view>
+					<view style="width: 40%;">{{item.currentTotal}}</view>
+				</view>
+			</view>
 		</view>
 		<view class="fixed-bottom p-3" style="z-index: 9999;background-color: #f7f7f7;">
 			<button class="weui-btn" type="primary" @tap="toCharts">查看图表</button>
@@ -87,8 +81,8 @@
 </template>
 
 <script>
-	let numeral = require('numeral');
-	numeral.defaultFormat('0,0.00');
+	//此处必须采用相对路径，否则会报错
+	import { formatMoney } from '../../common/js/formatNumber.js';
 	export default {
 		data() {
 			return {
@@ -106,14 +100,14 @@
 		},
 		computed: {
 			cp() {
-				return numeral(this.compoundParameter.present.value).format();
+				return formatMoney(this.compoundParameter.present.value);
 			},
 			isLong() {
 				let s = this.title.value + '';
 				return s.length > 12;
 			},
 			cf(){
-				return numeral(this.compoundParameter.f.value).format();
+				return formatMoney(this.compoundParameter.f.value);
 			}
 		},
 		onLoad(option) {
@@ -165,10 +159,10 @@
 						let dealN = this.dealUnit(iUnit, nUnit);
 						tempFutureValue = p * (1 + i / 100) ** dealN(n);
 						this.title.key = "期末本息和";
-						this.title.value = numeral(tempFutureValue).format()
+						this.title.value = formatMoney(tempFutureValue)
 						this.title.unit = pUnit;
-						this.totalRevenue = numeral(tempFutureValue - p).format();
-						this.totalYieldRate = numeral((tempFutureValue - p) / p * 100).format();
+						this.totalRevenue = formatMoney(tempFutureValue - p);
+						this.totalYieldRate = formatMoney((tempFutureValue - p) / p * 100);
 						if (Number.isNaN(this.totalRevenue)) {
 							return;
 						}
@@ -179,10 +173,11 @@
 							let current = p * (1 + i / 100) ** dealN(j);
 							this.tableList.push({
 								id: j, //期数
-								currentI: numeral(current - previous).format(), //本期利息
-								currentTotal: numeral(current).format(),
-								iTotal: numeral(current - p).format() //总利息
+								currentI: formatMoney(current - previous), //本期利息
+								currentTotal: formatMoney(current),
+								iTotal: formatMoney(current - p) //总利息
 							})
+							previous = current;
 						}
 						break;
 					case 1:
@@ -190,8 +185,8 @@
 						this.title.key = nUnit + '利率';
 						this.title.value = Math.floor((i - 1) * 10000) / 100;
 						this.title.unit = '%';
-						this.totalRevenue = numeral(f - p).format();
-						this.totalYieldRate = numeral((f - p) / p * 100).format();
+						this.totalRevenue = formatMoney(f - p);
+						this.totalYieldRate = formatMoney((f - p) / p * 100);
 						this.compoundParameter.i.value = this.title.value;
 						this.compoundParameter.i.unit = this.compoundParameter.n.unit+'利率';
 						if (Number.isNaN(i)) {
@@ -204,10 +199,11 @@
 							let current = p * i ** j;
 							this.tableList.push({
 								id: j, //期数
-								currentI: numeral(current - previous).format(), //本期利息
-								currentTotal: numeral(current).format(),
-								iTotal: numeral(current - p).format() //总利息
+								currentI: formatMoney(current - previous), //本期利息
+								currentTotal: formatMoney(current),
+								iTotal: formatMoney(current - p) //总利息
 							})
+							previous = current;
 						}
 						break;
 					case 2:
@@ -215,8 +211,8 @@
 						this.title.key = '投入本金';
 						this.title.value = Math.floor(p*100)/100;
 						this.title.unit = this.compoundParameter.f.unit;
-						this.totalRevenue = numeral(f - p).format();
-						this.totalYieldRate = numeral((f - p) / p * 100).format();
+						this.totalRevenue = formatMoney(f - p);
+						this.totalYieldRate = formatMoney((f - p) / p * 100);
 						this.compoundParameter.present.value = this.title.value;
 						this.compoundParameter.present.unit = this.compoundParameter.f.unit;
 						if (Number.isNaN(p)) {
@@ -229,10 +225,11 @@
 							let current = p * (1 + i / 100) ** j;
 							this.tableList.push({
 								id: j, //期数
-								currentI: numeral(current - previous).format(), //本期利息
-								currentTotal: numeral(current).format(),
-								iTotal: numeral(current - p).format() //总利息
+								currentI: formatMoney(current - previous), //本期利息
+								currentTotal: formatMoney(current),
+								iTotal: formatMoney(current - p) //总利息
 							})
+							previous = current;
 						}
 						break;
 					case 3:
@@ -243,8 +240,8 @@
 						
 						tempFutureValue = p * (1 + i / 100) ** n;
 						this.compoundParameter.f.value = tempFutureValue;
-						this.totalRevenue = numeral(tempFutureValue - p).format();
-						this.totalYieldRate = numeral((tempFutureValue - p) / p * 100).format();
+						this.totalRevenue = formatMoney(tempFutureValue - p);
+						this.totalYieldRate = formatMoney((tempFutureValue - p) / p * 100);
 						this.compoundParameter.n.value = Math.ceil(n);
 						this.compoundParameter.n.unit = this.title.unit;
 						if (Number.isNaN(p)) {
@@ -257,10 +254,11 @@
 							let current = p * (1 + i / 100) ** j;
 							this.tableList.push({
 								id: j, //期数
-								currentI: numeral(current - previous).format(), //本期利息
-								currentTotal: numeral(current).format(),
-								iTotal: numeral(current - p).format() //总利息
+								currentI: formatMoney(current - previous), //本期利息
+								currentTotal: formatMoney(current),
+								iTotal: formatMoney(current - p) //总利息
 							})
+							previous = current;
 						}
 						break;
 					default:
@@ -334,7 +332,7 @@
 <style>
 	.scroll-view-item_H {
 		display: inline-block;
-		width: 150%;
+		width: 100%;
 	}
 	.text-small{
 		font-size: 60upx;

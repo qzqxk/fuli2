@@ -57,6 +57,7 @@
 		</view>
 		<view class="padding mt-5">
 			<button class="weui-btn" type="primary" @tap="toResult">开始计算</button>
+			<button class="weui-btn" type="default" open-type="contact">我要吐槽</button>
 		</view>
 		<view class="fixed-bottom p-3">
 			<ad unit-id="adunit-64fe28fc7b3797b6"></ad>
