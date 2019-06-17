@@ -1,5 +1,5 @@
 <template>
-	<view class="pb-5">
+	<view>
 		<view>
 			<van-cell-group>
 				<van-field :value="dealPrice" required clearable label="房屋总价" type="digit" input-align="right" @input="onDealPriceInput"
@@ -82,6 +82,9 @@
 		<view class="mx-3 my-5">
 			<button class="weui-btn" type="primary" :disabled="disabled" @tap="calculate">计算</button>
 			<button class="weui-btn text-primary" type="default" @tap="reset">复位</button>
+		</view>
+		<view class="px-3" style="padding-bottom: 100upx;">
+			<ad unit-id="adunit-64fe28fc7b3797b6"></ad>
 		</view>
 	</view>
 </template>

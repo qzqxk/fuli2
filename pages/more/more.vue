@@ -10,6 +10,9 @@
 		<button open-type="share">
 			<nx-cell icon="/static/share.png" title="分享给好友"></nx-cell>
 		</button>
+		<view class="fixed-bottom p-3">
+			<ad unit-id="adunit-64fe28fc7b3797b6"></ad>
+		</view>
 	</view>
 </template>
 

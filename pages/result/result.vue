@@ -1,6 +1,6 @@
 <template>
-	<view class="text-df cu-card">
-		<view class="cu-item p-5">
+	<view class="text-df cu-card px-3" style="padding-bottom: 200upx;">
+		<view class="p-5 bg-white rounded">
 			<view class="text-center">
 				<view class="text-xl">
 					{{title.key}}
@@ -55,10 +55,10 @@
 				</view>
 			</view>
 		</view>
-		<view class="padding my-5">
-			<button class="weui-btn" type="primary" @tap="toCharts">查看图表</button>
+		<view class="my-3">
+			<ad unit-id="adunit-64fe28fc7b3797b6"></ad>
 		</view>
-		<view class="px-3 pb-5">
+		<view>
 			<scroll-view scroll-x="true" scroll-left="0">
 				<view class="scroll-view-item_H text-center text-df border radius">
 					<view class="py-2">
@@ -79,6 +79,9 @@
 					</view>
 				</view>
 			</scroll-view>
+		</view>
+		<view class="fixed-bottom p-3" style="z-index: 9999;background-color: #f7f7f7;">
+			<button class="weui-btn" type="primary" @tap="toCharts">查看图表</button>
 		</view>
 	</view>
 </template>
