@@ -69,6 +69,7 @@
 </template>
 
 <script>
+	let interstitialAd = null;
 	export default {
 		data() {
 			return {
@@ -81,6 +82,23 @@
 				active: 'bg-green', //按钮活跃样式
 				inactive: 'line-gray shadow', //按钮不活跃样式
 				open: false
+			}
+		},
+		onLoad() {
+			if (wx.createInterstitialAd) {
+				interstitialAd = wx.createInterstitialAd({
+					adUnitId: 'adunit-4f25f03f655b4f65'
+				})
+				interstitialAd.onError((err) => {
+				})
+				interstitialAd.onClose((res) => {
+				})
+			}
+		},
+		onShow() {
+			if (interstitialAd) {
+				interstitialAd.show().catch((err) => {
+				})
 			}
 		},
 		methods: {

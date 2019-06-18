@@ -66,6 +66,9 @@
 </template>
 
 <script>
+	let interstitialAd = null;
+	//判断是否首次进入小程序
+	let first = true;
 	export default {
 		data() {
 			return {
@@ -83,6 +86,24 @@
 				active: 'bg-green shadow-blur', //按钮活跃样式
 				inactive: 'line-gray shadow', //按钮不活跃样式
 				futureValue: '',
+			}
+		},
+		onLoad() {
+			if (wx.createInterstitialAd) {
+				interstitialAd = wx.createInterstitialAd({
+					adUnitId: 'adunit-4f25f03f655b4f65'
+				})
+				interstitialAd.onError((err) => {
+				})
+				interstitialAd.onClose((res) => {
+				})
+			}
+		},
+		onShow() {
+			if (!first&&interstitialAd) {
+				first = false;
+				interstitialAd.show().catch((err) => {
+				})
 			}
 		},
 		onShareAppMessage(res) {

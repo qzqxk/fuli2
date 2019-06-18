@@ -22,6 +22,23 @@
 		data() {
 			return {}
 		},
+		onLoad() {
+			if (wx.createInterstitialAd) {
+				interstitialAd = wx.createInterstitialAd({
+					adUnitId: 'adunit-4f25f03f655b4f65'
+				})
+				interstitialAd.onError((err) => {
+				})
+				interstitialAd.onClose((res) => {
+				})
+			}
+		},
+		onShow() {
+			if (interstitialAd) {
+				interstitialAd.show().catch((err) => {
+				})
+			}
+		},
 		methods: {
 			tipAttention() {
 				this.showGuide = true;
