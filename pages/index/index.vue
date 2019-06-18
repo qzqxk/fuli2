@@ -101,10 +101,10 @@
 		},
 		onShow() {
 			if (!first&&interstitialAd) {
-				first = false;
 				interstitialAd.show().catch((err) => {
 				})
 			}
+			first = false;
 		},
 		onShareAppMessage(res) {
 			if (res.from === 'button') {
