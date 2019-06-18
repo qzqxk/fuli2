@@ -1,5 +1,10 @@
 <script>
 	export default {
+		onPageNotFound(res) {
+			wx.switchTab({
+				url: 'pages/index/index'
+			})
+		}
 	}
 </script>
 
@@ -35,7 +40,7 @@
 		color: #09BB07;
 	}
 
-	.text-error{
+	.text-error {
 		color: #e64340;
 	}
 </style>

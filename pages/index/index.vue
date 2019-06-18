@@ -91,13 +91,13 @@
 			}
 			return {
 				title: '复利计算器',
-				path: '/pages/compound/compound'
+				path: '/pages/index/index'
 			};
 		},
 		methods: {
-			computePresent(){
-				this.calculationOptions=2;
-				this.fixedTimeUnit = this.expectInterestUnit.substr(0,1);
+			computePresent() {
+				this.calculationOptions = 2;
+				this.fixedTimeUnit = this.expectInterestUnit.substr(0, 1);
 			},
 			switchChange(e) {
 				this.open = e.detail.value;
@@ -161,13 +161,13 @@
 			},
 			bindExpectInterestUnitChange(e) {
 				this.expectInterestUnit = this.expectInterestColumns[e.detail.value];
-				if(this.calculationOptions==2){
-					this.fixedTimeUnit = this.expectInterestUnit.substr(0,1);
+				if (this.calculationOptions == 2) {
+					this.fixedTimeUnit = this.expectInterestUnit.substr(0, 1);
 				}
 			},
 			bindFixedTimeUnitChange(e) {
 				this.fixedTimeUnit = this.fixedTimeColumns[e.detail.value];
-				if(this.calculationOptions==2){
+				if (this.calculationOptions == 2) {
 					this.expectInterestUnit = this.fixedTimeUnit + '利率';
 				}
 			}
