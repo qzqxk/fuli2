@@ -31,7 +31,7 @@
 
 		<!-- 添加对比数据 -->
 		<view class="cu-modal" :class="show?'show':''">
-			<view class="cu-dialog">
+			<view class="cu-dialog" style="vertical-align: baseline;">
 				<view class="cu-bar bg-white justify-end">
 					<view class="content">请输入要对比的数据</view>
 				</view>
