@@ -201,11 +201,11 @@
 				</view>
 			</view>
 		</view>
-		<view class="mx-3 mt-5">
+		<view class="mx-3 my-5">
 			<button class="weui-btn" type="primary" :disabled="disabled" @tap="calculate">计算</button>
 			<button class="weui-btn text-primary" type="default" @tap="reset">复位</button>
 		</view>
-		<view class="p-3" style="padding-bottom: 150upx;">
+		<view class="px-3" style="padding-bottom: 100upx;">
 			<ad unit-id="adunit-64fe28fc7b3797b6"></ad>
 		</view>
 	</view>

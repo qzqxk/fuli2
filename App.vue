@@ -11,7 +11,7 @@
 		},
 		//清空缓存
 		onShow() {
-			// uni.clearStorageSync();
+			uni.clearStorageSync();
 		}
 	}
 </script>

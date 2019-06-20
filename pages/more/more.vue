@@ -3,7 +3,7 @@
 		<nx-cell @tap="goInstallment" icon="/static/bag.png" border title="分期利率计算器"></nx-cell>
 		<nx-cell @tap="goHouseModel" icon="/static/home.png" border title="二手房投资估算器"></nx-cell>
 		<button open-type="contact">
-			<nx-cell icon="/static/service.png" border title="意见反馈"></nx-cell>
+			<nx-cell icon="/static/service.png" border title="我要吐槽"></nx-cell>
 		</button>
 		<button open-type="share">
 			<nx-cell icon="/static/share.png" title="分享给好友"></nx-cell>
