@@ -1,10 +1,9 @@
 <template>
 	<view>
-		<guide v-if="showGuide"></guide>
-		<fuli-cell url="../installment/installment" title="分期利率计算器" icon="/static/bag.png"></fuli-cell>
-		<fuli-cell url="../houseModel/houseModel" title="二手房投资估算器" icon="/static/home.png"></fuli-cell>
+		<nx-cell @tap="goInstallment" icon="/static/bag.png" border title="分期利率计算器"></nx-cell>
+		<nx-cell @tap="goHouseModel" icon="/static/home.png" border title="二手房投资估算器"></nx-cell>
 		<button open-type="contact">
-			<fuli-cell title="意见反馈" icon="/static/service.png"></fuli-cell>
+			<nx-cell icon="/static/service.png" border title="意见反馈"></nx-cell>
 		</button>
 		<button open-type="share">
 			<nx-cell icon="/static/share.png" title="分享给好友"></nx-cell>
@@ -27,24 +26,25 @@
 				interstitialAd = wx.createInterstitialAd({
 					adUnitId: 'adunit-4f25f03f655b4f65'
 				})
-				interstitialAd.onError((err) => {
-				})
-				interstitialAd.onClose((res) => {
-				})
+				interstitialAd.onError((err) => {})
+				interstitialAd.onClose((res) => {})
 			}
 		},
 		onShow() {
 			if (interstitialAd) {
-				interstitialAd.show().catch((err) => {
-				})
+				interstitialAd.show().catch((err) => {})
 			}
 		},
 		methods: {
-			tipAttention() {
-				this.showGuide = true;
-				setTimeout(() => {
-					this.showGuide = false;
-				}, 4000)
+			goHouseModel() {
+				uni.navigateTo({
+					url: '../houseModel/houseModel'
+				})
+			},
+			goInstallment() {
+				uni.navigateTo({
+					url: '../installment/installment'
+				})
 			},
 			onShareAppMessage() {
 				return {

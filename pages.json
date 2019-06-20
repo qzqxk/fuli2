@@ -47,20 +47,7 @@
 		"navigationBarTitleText": "复利计算器",
 		"navigationBarTextStyle": "black",
 		"navigationBarBackgroundColor": "#f7f7f7",
-		"backgroundColor": "#f7f7f7",
-		"usingComponents": {
-			"van-button": "/wxcomponents/vant/button/index",
-			"van-cell": "/wxcomponents/vant/cell/index",
-			"van-cell-group": "/wxcomponents/vant/cell-group/index",
-			"van-field": "/wxcomponents/vant/field/index",
-			"van-icon": "/wxcomponents/vant/icon/index",
-			"van-panel": "/wxcomponents/vant/panel/index",
-			"van-tab": "/wxcomponents/vant/tab/index",
-			"van-tabs": "/wxcomponents/vant/tabs/index",
-			"van-dialog": "/wxcomponents/vant/dialog/index",
-			"fuli-cell": "/wxcomponents/customer/cell/index",
-			"i-panel": "/wxcomponents/i-view/panel/index"
-		}
+		"backgroundColor": "#f7f7f7"
 	},
 	"tabBar": {
 		"color": "#353535",

@@ -1,23 +1,43 @@
 <template>
-	<view>
-		<van-cell-group>
-			<van-field :value="instalmentAmount" @input="onInstalmentAmountInput" required clearable label="分期金额" maxlength="10"
-			 type="number" input-align="right" use-icon-slot size="large" placeholder="请输入分期金额">
-				<view slot="icon">元</view>
-			</van-field>
-			<van-field :value=" periods " @input="onPeriodsInput" required clearable label="期数" maxlength="10" type="number"
-			 input-align="right" use-icon-slot size="large" placeholder="请输入期数">
-				<view slot="icon">期</view>
-			</van-field>
-			<van-field :value=" repayment " @input="onRepaymentInput" required clearable label="每期还款" maxlength="10" type="number"
-			 input-align="right" use-icon-slot size="large" placeholder="请输入每期还款">
-				<view slot="icon">元</view>
-			</van-field>
-		</van-cell-group>
+	<view class="text-df">
+		<view class="cu-form-group">
+			<view class="title">
+				分期金额
+			</view>
+			<input placeholder="请输入分期金额" v-model="instalmentAmount" type="digit"></input>
+			<view class="action">
+				<text>元</text>
+			</view>
+		</view>
+		<view class="cu-form-group">
+			<view class="title">
+				分多少期
+			</view>
+			<input placeholder="请输入期数" v-model="periods" type="number"></input>
+			<view class="action">
+				<text>期</text>
+			</view>
+		</view>
+		<view class="cu-form-group">
+			<view class="title">
+				每期还款
+			</view>
+			<input placeholder="请输入每期还款" v-model="repayment" type="digit"></input>
+			<view class="action">
+				<text>元</text>
+			</view>
+		</view>
 		<view class="mt-5">
-			<van-cell-group>
-				<van-cell title="年化利率" :value="revenue" size="large" value-class="value-class"></van-cell>
-			</van-cell-group>
+			<view class="cu-list menu">
+				<view class="cu-item">
+					<view class="content">
+						<text>年化利率</text>
+					</view>
+					<view class="action">
+						<text>{{revenue}}</text>
+					</view>
+				</view>
+			</view>
 		</view>
 		<view class="mx-3 mt-5">
 			<button class="weui-btn" type="primary" :disabled="disabled" @tap="calculate">计算</button>
@@ -45,24 +65,12 @@
 			}
 		},
 		onShareAppMessage(res) {
-			if (res.from === 'button') {
-				console.log(res.target);
-			}
 			return {
 				title: '分期利率计算器',
 				path: '/pages/installment/installment'
 			};
 		},
 		methods: {
-			onPeriodsInput(e) {
-				this.periods = e.detail;
-			},
-			onRepaymentInput(e) {
-				this.repayment = e.detail;
-			},
-			onInstalmentAmountInput(e) {
-				this.instalmentAmount = e.detail;
-			},
 			calculate() {
 				try {
 					this.revenue = this.irr(this.instalmentAmount, this.periods, this.repayment)
@@ -114,5 +122,8 @@
 </script>
 
 <style>
-
+	/* 防止表单标题长短不一 */
+	.cu-form-group .title {
+		min-width: calc(4em + 15px);
+	}
 </style>

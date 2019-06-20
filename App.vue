@@ -11,7 +11,7 @@
 		},
 		//清空缓存
 		onShow() {
-			uni.clearStorageSync();
+			// uni.clearStorageSync();
 		}
 	}
 </script>
@@ -22,7 +22,6 @@
 	@import "common/css/icon.css";
 	@import "common/css/weui.wxss";
 	@import "common/css/bootstrap.wxss";
-	@import "common/css/vant.css";
 
 	page {
 		background-color: #f7f7f7;

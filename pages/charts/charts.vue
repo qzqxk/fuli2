@@ -28,41 +28,46 @@
 		<view class="padding mt-3">
 			<button class="weui-btn" type="primary" @tap="goHome">回到首页</button>
 		</view>
-		
+
 		<!-- 添加对比数据 -->
-		<van-dialog async-close use-slot :show="show" show-cancel-button confirmButtonText="对比" @confirm="dialogConfirm"
-		 @cancel="onCancel">
-			<view class="cu-bar bg-white justify-end border-bottom">
-				<view class="content">请输入要对比的数据</view>
+		<view class="cu-modal" :class="show?'show':''">
+			<view class="cu-dialog">
+				<view class="cu-bar bg-white justify-end">
+					<view class="content">请输入要对比的数据</view>
+				</view>
+				<view class="text-df text-left">
+					<view class="cu-form-group">
+						<view class="title">
+							本金
+						</view>
+						<input placeholder="请输入" v-model="contrastP" type="digit"></input>
+						<view class="action">
+							<text>{{compoundParameter.present.unit}}</text>
+						</view>
+					</view>
+					<view class="cu-form-group">
+						<view class="title">
+							期数
+						</view>
+						<input placeholder="请输入" v-model="contrastN" type="number"></input>
+						<view class="action">
+							<text>{{compoundParameter.n.unit}}</text>
+						</view>
+					</view>
+					<view class="cu-form-group">
+						<view class="title">收益率</view>
+						<input placeholder="请输入" v-model="contrastI" type="digit"></input>
+						<view class="action">
+							<text>%{{compoundParameter.i.unit}}</text>
+						</view>
+					</view>
+				</view>
+				<view class="cu-bar bg-white justify-between px-3">
+					<button class="cu-btn line-green text-green flex-grow-1" @tap="onCancel">取消</button>
+					<button class="cu-btn bg-green margin-left flex-grow-1" @tap="dialogConfirm">对比</button>
+				</view>
 			</view>
-			<view class="text-df">
-				<view class="cu-form-group">
-					<view class="title">
-						本金
-					</view>
-					<input placeholder="请输入" v-model="contrastP" type="digit"></input>
-					<view class="action">
-						<text>{{compoundParameter.present.unit}}</text>
-					</view>
-				</view>
-				<view class="cu-form-group">
-					<view class="title">
-						期数
-					</view>
-					<input placeholder="请输入" v-model="contrastN" type="number"></input>
-					<view class="action">
-						<text>{{compoundParameter.n.unit}}</text>
-					</view>
-				</view>
-				<view class="cu-form-group">
-					<view class="title">收益率</view>
-					<input placeholder="请输入" v-model="contrastI" type="digit"></input>
-					<view class="action">
-						<text>%{{compoundParameter.i.unit}}</text>
-					</view>
-				</view>
-			</view>
-		</van-dialog>
+		</view>
 		<view class="px-3" style="padding-bottom: 100upx;">
 			<ad unit-id="adunit-64fe28fc7b3797b6"></ad>
 		</view>
@@ -71,7 +76,9 @@
 
 <script>
 	import uCharts from '@/components/u-charts/u-charts.js';
-	import { formatMoney } from '../../common/js/common.js';
+	import {
+		formatMoney
+	} from '../../common/js/common.js';
 	var _self;
 	var canvaLineA = null;
 	let cWidth = '';
@@ -88,17 +95,17 @@
 				chartShow: true,
 				contrastData: [], //所有要对比的数据
 				sequence: [{
-					name:'A',
-					color:'#1890ff'
-				},{
-					name:'B',
-					color:'#2fc25b'
-				},{
-					name:'C',
-					color:'#facc14'
-				},{
-					name:'D',
-					color:'#f04864'
+					name: 'A',
+					color: '#1890ff'
+				}, {
+					name: 'B',
+					color: '#2fc25b'
+				}, {
+					name: 'C',
+					color: '#facc14'
+				}, {
+					name: 'D',
+					color: '#f04864'
 				}], //每条数据的序号
 			}
 		},
@@ -129,12 +136,11 @@
 			},
 			onCancel(e) {
 				this.show = false;
-				e.detail.dialog.close();
 				setTimeout(() => {
 					this.chartShow = true;
 				}, 200)
 			},
-			dialogConfirm(e) {
+			dialogConfirm() {
 				//校验输入是否正确
 				if (this.contrastP == '') {
 					uni.showToast({
@@ -158,10 +164,7 @@
 					e.detail.dialog.stopLoading();
 					return;
 				}
-
-				e.detail.dialog.close();
 				this.show = false;
-
 				this.contrastData.push({
 					p: this.contrastP,
 					i: this.contrastI,
@@ -315,6 +318,6 @@
 
 	/* 防止表单标题长短不一 */
 	.cu-form-group .title {
-		min-width: calc(4em + 15px);
+		min-width: 150upx;
 	}
 </style>

@@ -1,89 +1,211 @@
 <template>
-	<view>
-		<view>
-			<van-cell-group>
-				<van-field :value="dealPrice" required clearable label="房屋总价" type="digit" input-align="right" @input="onDealPriceInput"
-				 use-icon-slot size="large" placeholder="请输入房屋总价">
-					<view slot="icon">万</view>
-				</van-field>
-				<picker @change="onDownPaymentPickerChange" :range="downPaymentColumns" value="1">
-					<van-cell title="首付比例" :value="cdownPayment" value-class="value-class" size="large" is-link></van-cell>
-				</picker>
-				<picker @change="onLoansLimitPickerChange" :range="loansLimitColumns" :value="loansLimit-1">
-					<van-cell title="按揭年数" :value="cloansLimit" value-class="value-class" size="large" is-link></van-cell>
-				</picker>
-				<picker @change="onLoansRatePickerChange" range-key="key" :range="loansRateColumns" value="7">
-					<van-cell title="贷款年利率" :value="cloansRate" value-class="value-class" size="large" is-link></van-cell>
-				</picker>
-			</van-cell-group>
+	<view class="text-df">
+		<view class="cu-form-group">
+			<view class="title">
+				房屋总价
+			</view>
+			<input placeholder="请输入房屋总价" v-model="dealPrice" type="digit"></input>
+			<view class="action">
+				<text>万</text>
+			</view>
 		</view>
+		<picker @change="onDownPaymentPickerChange" :range="downPaymentColumns" value="1">
+			<view class="cu-list menu">
+				<view class="cu-item arrow">
+					<view class="content">
+						<text>首付比例</text>
+					</view>
+					<view class="action">
+						<text>{{cdownPayment}}</text>
+					</view>
+				</view>
+			</view>
+		</picker>
+		<picker @change="onLoansLimitPickerChange" :range="loansLimitColumns" :value="loansLimit-1">
+			<view class="cu-list menu">
+				<view class="cu-item arrow">
+					<view class="content">
+						<text>按揭年数</text>
+					</view>
+					<view class="action">
+						<text>{{cloansLimit}}</text>
+					</view>
+				</view>
+			</view>
+		</picker>
+		<picker @change="onLoansRatePickerChange" range-key="key" :range="loansRateColumns" value="7">
+			<view class="cu-list menu">
+				<view class="cu-item arrow">
+					<view class="content">
+						<text>贷款年利率</text>
+					</view>
+					<view class="action">
+						<text>{{cloansRate}}</text>
+					</view>
+				</view>
+			</view>
+		</picker>
 		<view class="mt-3">
-			<van-cell-group>
-				<van-field :value="expenses" required clearable @input="onExpensesInput" label="税费" type="digit" input-align="right"
-				 use-icon-slot size="large" placeholder="请输入税费比例">
-					<view slot="icon">%</view>
-				</van-field>
-				<van-field :value="loanService" required clearable @input="onLoanServiceInput" label="贷款服务费" type="digit"
-				 input-align="right" use-icon-slot size="large" placeholder="请输入贷款担保服务费比例">
-					<view slot="icon">%</view>
-				</van-field>
-				<van-field :value="agentRate" required clearable @input="onAgentRateInput" label="中介费" type="digit" input-align="right"
-				 use-icon-slot size="large" placeholder="请输入中介抽成比例">
-					<view slot="icon">%</view>
-				</van-field>
-				<van-field :value="otherCost" clearable @input="onOtherCostInput" label="其它费用" input-align="right" use-icon-slot
-				 size="large" type="number" placeholder="请输入其它费用">
-					<view slot="icon">元</view>
-				</van-field>
-			</van-cell-group>
+			<view class="cu-form-group">
+				<view class="title">
+					税费
+				</view>
+				<input placeholder="请输入税费比例" v-model="expenses" type="digit"></input>
+				<view class="action">
+					<text>%</text>
+				</view>
+			</view>
+			<view class="cu-form-group">
+				<view class="title">
+					贷款服务费
+				</view>
+				<input placeholder="请输入贷款担保服务费比例" v-model="loanService" type="digit"></input>
+				<view class="action">
+					<text>%</text>
+				</view>
+			</view>
+			<view class="cu-form-group">
+				<view class="title">
+					中介费
+				</view>
+				<input placeholder="请输入中介抽成比例" v-model="agentRate" type="digit"></input>
+				<view class="action">
+					<text>%</text>
+				</view>
+			</view>
+			<view class="cu-form-group">
+				<view class="title">
+					其它费用
+				</view>
+				<input placeholder="请输入其它费用" v-model="otherCost" type="digit"></input>
+				<view class="action">
+					<text>元</text>
+				</view>
+			</view>
 		</view>
+
 		<view class="mt-3">
-			<van-cell-group>
-				<van-field :value=" expectRenovationCost " required clearable @input="onExpectRenovationCostInput" label="预期装修费"
-				 type="digit" input-align="right" use-icon-slot size="large" placeholder="您预期装修费是多少">
-					<view slot="icon">万</view>
-				</van-field>
-				<van-field :value=" expectMothRent " required clearable @input="onExpectMothRentInput" label="预期月租金" type="number"
-				 input-align="right" use-icon-slot size="large" placeholder="您预期房屋出租后能租多少钱">
-					<view slot="icon">元</view>
-				</van-field>
-				<van-field :value=" expectOtherInterest " required clearable @input="onExpectOtherInterestInput" label="期望收益率" type="number"
-				 input-align="right" use-icon-slot size="large" placeholder="您期望每年的收益率是多少">
-					<view slot="icon">%</view>
-				</van-field>
-			</van-cell-group>
+			<view class="cu-form-group">
+				<view class="title">
+					预期装修费
+				</view>
+				<input placeholder="您预期装修费是多少" v-model="expectRenovationCost" type="digit"></input>
+				<view class="action">
+					<text>万</text>
+				</view>
+			</view>
+			<view class="cu-form-group">
+				<view class="title">
+					预期月租金
+				</view>
+				<input placeholder="您预期房屋出租后能租多少钱" v-model="expectMothRent" type="digit"></input>
+				<view class="action">
+					<text>元</text>
+				</view>
+			</view>
+			<view class="cu-form-group">
+				<view class="title">
+					期望收益率
+				</view>
+				<input placeholder="您期望每年的收益率是多少" v-model="expectOtherInterest" type="digit"></input>
+				<view class="action">
+					<text>%</text>
+				</view>
+			</view>
 		</view>
+
 		<view class="mt-3">
-			<van-cell-group>
-				<van-field :value=" expectHoldTime " required clearable @input="onExpectHoldTimeInput" label="持有时长" type="number"
-				 input-align="right" use-icon-slot size="large" placeholder="准备持有多久后卖出">
-					<view slot="icon">年</view>
-				</van-field>
-				<van-field :value=" expectHouseRise " required clearable @input="onExpectHouseRiseInput" label="房价年涨幅" type="number"
-				 input-align="right" use-icon-slot size="large" placeholder="持有期间您预期的房价年涨幅">
-					<view slot="icon">%</view>
-				</van-field>
-				<van-field :value=" expectRentRise" required clearable @input="onExpectRentRiseInput" label="租金年涨幅" type="number"
-				 input-align="right" use-icon-slot size="large" placeholder="持有期间您预期的租金年涨幅">
-					<view slot="icon">%</view>
-				</van-field>
-			</van-cell-group>
+			<view class="cu-form-group">
+				<view class="title">
+					持有时长
+				</view>
+				<input placeholder="准备持有多久后卖出" v-model="expectHoldTime" type="digit"></input>
+				<view class="action">
+					<text>年</text>
+				</view>
+			</view>
+			<view class="cu-form-group">
+				<view class="title">
+					房价年涨幅
+				</view>
+				<input placeholder="持有期间您预期的房价年涨幅" v-model="expectHouseRise" type="digit"></input>
+				<view class="action">
+					<text>%</text>
+				</view>
+			</view>
+			<view class="cu-form-group">
+				<view class="title">
+					租金年涨幅
+				</view>
+				<input placeholder="持有期间您预期的租金年涨幅" v-model="expectRentRise" type="digit"></input>
+				<view class="action">
+					<text>%</text>
+				</view>
+			</view>
 		</view>
-		<view>
-			<i-panel title="估算结果（不构成投资建议）">
-				<van-cell title="预期房屋售价" :value="houseSell" size="large" value-class="value-class"></van-cell>
-				<van-cell title="每月还款" :value="monthPay" size="large" value-class="value-class"></van-cell>
-				<van-cell title="初期总投资" :value="totalInvestment" size="large" value-class="value-class"></van-cell>
-				<van-cell title="现金的现金回报率" :value="cashRewards" size="large" value-class="value-class"></van-cell>
-				<van-cell title="投资回报率" :value="investment" size="large" value-class="value-class"></van-cell>
-				<van-cell title="年化回报率" :value="annualized" size="large" value-class="value-class"></van-cell>
-			</i-panel>
+		<view class="mt-5">
+			<view class="cu-bar bg-white solid-bottom margin-top">
+				<view class="action">
+					<text class="cuIcon-title text-orange "></text> 估算结果（不构成投资建议）
+				</view>
+			</view>
+			<view class="cu-list menu">
+				<view class="cu-item">
+					<view class="content">
+						<text>预期房屋售价</text>
+					</view>
+					<view class="action">
+						<text>{{houseSell}}</text>
+					</view>
+				</view>
+				<view class="cu-item">
+					<view class="content">
+						<text>每月还款</text>
+					</view>
+					<view class="action">
+						<text>{{monthPay}}</text>
+					</view>
+				</view>
+				<view class="cu-item">
+					<view class="content">
+						<text>初期总投资</text>
+					</view>
+					<view class="action">
+						<text>{{totalInvestment}}</text>
+					</view>
+				</view>
+				<view class="cu-item">
+					<view class="content">
+						<text>现金的现金回报率</text>
+					</view>
+					<view class="action">
+						<text>{{cashRewards}}</text>
+					</view>
+				</view>
+
+				<view class="cu-item">
+					<view class="content">
+						<text>投资回报率</text>
+					</view>
+					<view class="action">
+						<text>{{investment}}</text>
+					</view>
+				</view>
+				<view class="cu-item">
+					<view class="content">
+						<text>年化回报率</text>
+					</view>
+					<view class="action">
+						<text>{{annualized}}</text>
+					</view>
+				</view>
+			</view>
 		</view>
-		<view class="mx-3 my-5">
+		<view class="mx-3 mt-5">
 			<button class="weui-btn" type="primary" :disabled="disabled" @tap="calculate">计算</button>
 			<button class="weui-btn text-primary" type="default" @tap="reset">复位</button>
 		</view>
-		<view class="px-3" style="padding-bottom: 100upx;">
+		<view class="p-3" style="padding-bottom: 150upx;">
 			<ad unit-id="adunit-64fe28fc7b3797b6"></ad>
 		</view>
 	</view>
@@ -194,7 +316,7 @@
 				totalInvestment: '点击计算得出',
 				investment: '点击计算得出',
 				annualized: '点击计算得出',
-				cashRewards:'点击计算得出'
+				cashRewards: '点击计算得出'
 			}
 		},
 		onShareAppMessage(res) {
@@ -312,7 +434,7 @@
 				let makeMoney = tempHouseSell - damage - loanAmount;
 				//总投资
 				this.totalInvestment =
-					this.expenses/100 * this.dealPrice +
+					this.expenses / 100 * this.dealPrice +
 					this.expectRenovationCost * 10000 +
 					initialPay +
 					(dealPrice * this.agentRate) / 100 +
@@ -322,7 +444,7 @@
 				//总投资回报率
 				this.investment = (100 * tempInvestment).toFixed(2) + '%';
 				//现金的现金回报率
-				this.cashRewards = (this.expectMothRent*12/this.totalInvestment*100).toFixed(2)+'%';
+				this.cashRewards = (this.expectMothRent * 12 / this.totalInvestment * 100).toFixed(2) + '%';
 				//年化回报率
 				let tempAnnualized =
 					Math.pow(tempInvestment, 1 / this.expectHoldTime) - 1;
@@ -384,5 +506,9 @@
 <style>
 	.value-class {
 		color: #353535 !important;
+	}
+	/* 防止表单标题长短不一 */
+	.cu-form-group .title {
+		min-width: calc(5em + 15px);
 	}
 </style>
