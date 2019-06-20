@@ -67,7 +67,7 @@
 				try {
 					this.revenue = this.irr(this.instalmentAmount, this.periods, this.repayment)
 				} catch (err) {
-					wx.showToast({
+					uni.showToast({
 						title: err.message,
 						icon: 'none'
 					});

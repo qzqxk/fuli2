@@ -1,7 +1,7 @@
 <script>
 	export default {
 		onPageNotFound(res) {
-			wx.switchTab({
+			uni.switchTab({
 				url: 'pages/index/index'
 			})
 		}
