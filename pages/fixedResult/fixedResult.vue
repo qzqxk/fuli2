@@ -73,7 +73,7 @@
 </template>
 
 <script>
-	import { formatMoney } from '../../common/js/formatNumber.js';
+	import { formatMoney } from '../../common/js/common.js';
 	export default {
 		data() {
 			return {

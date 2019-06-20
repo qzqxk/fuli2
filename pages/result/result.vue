@@ -82,7 +82,7 @@
 
 <script>
 	//此处必须采用相对路径，否则会报错
-	import { formatMoney } from '../../common/js/formatNumber.js';
+	import { formatMoney } from '../../common/js/common.js';
 	export default {
 		data() {
 			return {

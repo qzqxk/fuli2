@@ -71,7 +71,7 @@
 
 <script>
 	import uCharts from '@/components/u-charts/u-charts.js';
-	import { formatMoney } from '../../common/js/formatNumber.js';
+	import { formatMoney } from '../../common/js/common.js';
 	var _self;
 	var canvaLineA = null;
 	let cWidth = '';

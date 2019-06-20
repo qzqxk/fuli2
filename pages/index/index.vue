@@ -69,23 +69,24 @@
 	let interstitialAd = null;
 	//判断是否首次进入小程序
 	let first = true;
+	import {isNotNumber} from '../../common/js/common.js';
 	export default {
 		data() {
 			return {
 				calculationOptions: 0, //计算选项
-				presentValue: '',
-				fixedTime: '',
-				expectInterest: '',
-				fixedTimeColumns: ['年', '月', '日'],
-				fixedTimeUnit: '年',
-				expectInterestColumns: ['年利率', '月利率', '日利率'],
-				expectInterestUnit: '年利率', //收益率单位
+				presentValue: '',//现值
+				fixedTime: '',//期数
+				expectInterest: '',//利率
+				fixedTimeColumns: ['年', '月', '日'],//期数单位集合
+				fixedTimeUnit: '年',//期数单位
+				expectInterestColumns: ['年利率', '月利率', '日利率'],//利率单位集合
+				expectInterestUnit: '年利率', //利率单位
 				moneyUnitColumns: ['元', '万'],
 				moneyUnit: '元',
 				open: false,
 				active: 'bg-green shadow-blur', //按钮活跃样式
 				inactive: 'line-gray shadow', //按钮不活跃样式
-				futureValue: '',
+				futureValue: '',//终值
 			}
 		},
 		onLoad() {
@@ -107,9 +108,6 @@
 			first = false;
 		},
 		onShareAppMessage(res) {
-			if (res.from === 'button') {
-				console.log(res.target);
-			}
 			return {
 				title: '复利计算器',
 				path: '/pages/index/index'
@@ -128,27 +126,27 @@
 			 */
 			toResult() {
 				//校验输入是否正确
-				if (this.calculationOptions != 2 && this.presentValue == '') {
+				if (this.calculationOptions != 2 && isNotNumber(this.presentValue)) {
 					uni.showToast({
-						title: '请输入本金',
+						title: '请输入正确的本金',
 						icon: 'none'
 					})
 					return;
-				} else if (this.calculationOptions != 3 && this.fixedTime == '') {
+				} else if (this.calculationOptions != 3 && isNotNumber(this.fixedTime)) {
 					uni.showToast({
-						title: '请输入期数',
+						title: '请输入正确的期数',
 						icon: 'none'
 					})
 					return;
-				} else if (this.calculationOptions != 1 && this.expectInterest == '') {
+				} else if (this.calculationOptions != 1 && isNotNumber(this.expectInterest)) {
 					uni.showToast({
-						title: '请输入收益率',
+						title: '请输入正确的收益率',
 						icon: 'none'
 					})
 					return;
-				} else if (this.calculationOptions != 0 && this.futureValue == '') {
+				} else if (this.calculationOptions != 0 && isNotNumber(this.futureValue)) {
 					uni.showToast({
-						title: '请输入终值',
+						title: '请输入正确的终值',
 						icon: 'none'
 					})
 					return;
@@ -156,19 +154,19 @@
 				//存储计算参数
 				uni.setStorageSync('compoundParameter', {
 					present: { //复利现值
-						value: this.presentValue,
+						value: Number(this.presentValue),
 						unit: this.moneyUnit
 					},
 					n: { //期数
-						value: this.fixedTime,
+						value: Number(this.fixedTime),
 						unit: this.fixedTimeUnit
 					},
 					i: { //利率
-						value: this.expectInterest,
+						value: Number(this.expectInterest),
 						unit: this.expectInterestUnit
 					},
 					f: { //终值
-						value: this.futureValue,
+						value: Number(this.futureValue),
 						unit: this.moneyUnit
 					},
 					option: this.calculationOptions //计算选项

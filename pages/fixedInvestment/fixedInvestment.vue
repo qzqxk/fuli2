@@ -69,6 +69,7 @@
 </template>
 
 <script>
+	import { isNotNumber } from '../../common/js/common.js';
 	let interstitialAd = null;
 	export default {
 		data() {
@@ -109,102 +110,40 @@
 			 * 跳转计算结果页面
 			 */
 			toResult() {
-				switch (this.calculationOptions) {
-					case 0:
-						if (this.fixedMoney == '') {
-							uni.showToast({
-								title: '请输入定投金额',
-								icon: 'none'
-							})
-							return;
-						} else if (this.fixedTime == '') {
-							uni.showToast({
-								title: '请输入定投时长',
-								icon: 'none'
-							})
-							return;
-						} else if (this.expectInterest == '') {
-							uni.showToast({
-								title: '请输入收益率',
-								icon: 'none'
-							})
-							return;
-						}
-						break;
-					case 1:
-						if (this.fixedMoney == '') {
-							uni.showToast({
-								title: '请输入定投金额',
-								icon: 'none'
-							})
-							return;
-						} else if (this.fixedTime == '') {
-							uni.showToast({
-								title: '请输入定投时长',
-								icon: 'none'
-							})
-							return;
-						} else if (this.futureValue == '') {
-							uni.showToast({
-								title: '请输入想拥有的总资产',
-								icon: 'none'
-							})
-							return;
-						}
-						break;
-					case 2:
-						if (this.expectInterest == '') {
-							uni.showToast({
-								title: '请输入收益率',
-								icon: 'none'
-							})
-							return;
-						} else if (this.fixedTime == '') {
-							uni.showToast({
-								title: '请输入定投时长',
-								icon: 'none'
-							})
-							return;
-						} else if (this.futureValue == '') {
-							uni.showToast({
-								title: '请输入想拥有的总资产',
-								icon: 'none'
-							})
-							return;
-						}
-						break;
-					case 3:
-						if (this.fixedMoney == '') {
-							uni.showToast({
-								title: '请输入定投金额',
-								icon: 'none'
-							})
-							return;
-						} else if (this.expectInterest == '') {
-							uni.showToast({
-								title: '请输入收益率',
-								icon: 'none'
-							})
-							return;
-						} else if (this.futureValue == '') {
-							uni.showToast({
-								title: '请输入想拥有的总资产',
-								icon: 'none'
-							})
-							return;
-						}
-						break;
-					default:
-						break;
+				//校验输入是否正确
+				if (this.calculationOptions != 2 && isNotNumber(this.fixedMoney)) {
+					uni.showToast({
+						title: '请输入正确的定投金额',
+						icon: 'none'
+					})
+					return;
+				} else if (this.calculationOptions != 3 && isNotNumber(this.fixedTime)) {
+					uni.showToast({
+						title: '请输入正确的定投期数',
+						icon: 'none'
+					})
+					return;
+				} else if (this.calculationOptions != 1 && isNotNumber(this.expectInterest)) {
+					uni.showToast({
+						title: '请输入正确的收益率',
+						icon: 'none'
+					})
+					return;
+				} else if (this.calculationOptions != 0 && isNotNumber(this.futureValue)) {
+					uni.showToast({
+						title: '请输入正确的终值',
+						icon: 'none'
+					})
+					return;
 				}
 				//存储计算参数
 				uni.setStorageSync('parameter', {
 					option: this.calculationOptions,
 					period: this.period,
-					fixedMoney: this.fixedMoney, //每期定投金额
-					fixedTime: this.fixedTime, //定投时长
-					expectInterest: this.expectInterest, //复合收益率
-					futureValue: this.futureValue, //终值
+					fixedMoney: Number(this.fixedMoney), //每期定投金额
+					fixedTime: Number(this.fixedTime), //定投时长
+					expectInterest: Number(this.expectInterest), //复合收益率
+					futureValue: Number(this.futureValue), //终值
 				});
 				uni.navigateTo({
 					url: '../fixedResult/fixedResult'
