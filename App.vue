@@ -4,14 +4,14 @@
 		apikey: 'f93ca01c668e76d262aeff48bcc4d372cc3df92fc16c755ba1a17485127256ea'
 	})
 	export default {
-		onPageNotFound(res) {
-			uni.switchTab({
-				url: 'pages/index/index'
-			})
-		},
 		//清空缓存
 		onShow() {
 			uni.clearStorageSync();
+		},
+		onPageNotFound(){
+			uni.switchTab({
+				url:'/pages/index/index'
+			})
 		}
 	}
 </script>
