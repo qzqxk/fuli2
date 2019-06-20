@@ -69,24 +69,26 @@
 	let interstitialAd = null;
 	//判断是否首次进入小程序
 	let first = true;
-	import {isNotNumber} from '../../common/js/common.js';
+	import {
+		isNotNumber
+	} from '../../common/js/common.js';
 	export default {
 		data() {
 			return {
 				calculationOptions: 0, //计算选项
-				presentValue: '',//现值
-				fixedTime: '',//期数
-				expectInterest: '',//利率
-				fixedTimeColumns: ['年', '月', '日'],//期数单位集合
-				fixedTimeUnit: '年',//期数单位
-				expectInterestColumns: ['年利率', '月利率', '日利率'],//利率单位集合
+				presentValue: '', //现值
+				fixedTime: '', //期数
+				expectInterest: '', //利率
+				fixedTimeColumns: ['年', '月', '日'], //期数单位集合
+				fixedTimeUnit: '年', //期数单位
+				expectInterestColumns: ['年利率', '月利率', '日利率'], //利率单位集合
 				expectInterestUnit: '年利率', //利率单位
 				moneyUnitColumns: ['元', '万'],
 				moneyUnit: '元',
 				open: false,
 				active: 'bg-green shadow-blur', //按钮活跃样式
 				inactive: 'line-gray shadow', //按钮不活跃样式
-				futureValue: '',//终值
+				futureValue: '', //终值
 			}
 		},
 		onLoad() {
@@ -94,16 +96,13 @@
 				interstitialAd = wx.createInterstitialAd({
 					adUnitId: 'adunit-4f25f03f655b4f65'
 				})
-				interstitialAd.onError((err) => {
-				})
-				interstitialAd.onClose((res) => {
-				})
+				interstitialAd.onError((err) => {})
+				interstitialAd.onClose((res) => {})
 			}
 		},
 		onShow() {
-			if (!first&&interstitialAd) {
-				interstitialAd.show().catch((err) => {
-				})
+			if (!first && interstitialAd) {
+				interstitialAd.show().catch((err) => {})
 			}
 			first = false;
 		},
