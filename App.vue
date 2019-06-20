@@ -8,6 +8,10 @@
 			uni.switchTab({
 				url: 'pages/index/index'
 			})
+		},
+		//清空缓存
+		onShow() {
+			uni.clearStorageSync();
 		}
 	}
 </script>
