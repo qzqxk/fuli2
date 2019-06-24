@@ -1,8 +1,8 @@
 <script>
-	var fundebug = require('./libs/fundebug.1.3.1.min.js');
-	fundebug.init({
-		apikey: 'f93ca01c668e76d262aeff48bcc4d372cc3df92fc16c755ba1a17485127256ea'
-	})
+	// var fundebug = require('./libs/fundebug.1.3.1.min.js');
+	// fundebug.init({
+	// 	apikey: 'f93ca01c668e76d262aeff48bcc4d372cc3df92fc16c755ba1a17485127256ea'
+	// })
 	export default {
 		//清空缓存
 		onShow() {

@@ -84,15 +84,9 @@
 	}
 
 	button {
-		padding: 0;
-		line-height: 1.6;
-		font-size: initial;
-		text-align: initial;
-		border-radius: inherit;
+		all:initial
 	}
-
 	button:after {
-		border: none;
-		border-radius: 0;
+		all:initial
 	}
 </style>
