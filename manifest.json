@@ -1,7 +1,7 @@
 {
-    "name" : "test1",
-    "appid" : "",
-    "description" : "",
+    "name" : "复利计算器",
+    "appid" : "__UNI__DD38D1D",
+    "description" : "复利计算器",
     "versionName" : "1.0.0",
     "versionCode" : "100",
     "transformPx" : false,
@@ -59,7 +59,7 @@
             "urlCheck" : false
         },
         "usingComponents" : true,
-		"navigateToMiniProgramAppIdList":["wxd44da5e300b3e1a0"]
+        "navigateToMiniProgramAppIdList" : [ "wxd44da5e300b3e1a0" ]
     },
     "h5" : {
         "title" : "test1",
