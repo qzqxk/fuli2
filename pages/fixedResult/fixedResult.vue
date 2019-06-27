@@ -66,15 +66,17 @@
 			<ad unit-id="adunit-64fe28fc7b3797b6"></ad>
 		</view>
 		<view class="my-5">
-			<button class="weui-btn" type="primary" open-type="share">去分享</button>
 			<!-- #ifdef MP-WEIXIN -->
-			<button class="weui-btn" type="default" @tap="goHome">回到首页</button>
+			<button class="weui-btn" type="primary" open-type="share">去分享</button>
 			<!-- #endif -->
-	</view>
+			<button class="weui-btn" type="default" @tap="goHome">回到首页</button>
+		</view>
 </template>
 
 <script>
-	import { formatMoney } from '../../common/js/common.js';
+	import {
+		formatMoney
+	} from '../../common/js/common.js';
 	export default {
 		data() {
 			return {
