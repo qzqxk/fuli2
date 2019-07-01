@@ -47,7 +47,15 @@
             },
             "ios" : {},
             /* ios打包配置 */
-            "sdkConfigs" : {}
+            "sdkConfigs" : {},
+            "icons" : {
+                "android" : {
+                    "hdpi" : "C:/Users/Administrator/Pictures/77.png",
+                    "xhdpi" : "C:/Users/Administrator/Pictures/96.png",
+                    "xxhdpi" : "C:/Users/Administrator/Pictures/144.png",
+                    "xxxhdpi" : "C:/Users/Administrator/Pictures/192.png"
+                }
+            }
         }
     },
     /* SDK配置 */
