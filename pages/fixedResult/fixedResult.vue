@@ -68,8 +68,11 @@
 		<view class="my-5">
 			<!-- #ifdef MP-WEIXIN -->
 			<button class="weui-btn" type="primary" open-type="share">去分享</button>
-			<!-- #endif -->
 			<button class="weui-btn" type="default" @tap="goHome">回到首页</button>
+			<!-- #endif -->
+			<!-- #ifdef APP-PLUS -->
+			<button class="weui-btn" type="primary" @tap="goHome">回到首页</button>
+			<!-- #endif -->
 		</view>
 </template>
 
