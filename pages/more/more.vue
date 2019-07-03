@@ -3,7 +3,7 @@
 		<view @tap="goInstallment">
 			<nx-cell icon="/static/bag.png" border title="分期利率计算器"></nx-cell>
 		</view>
-		<view @tap="goHousesModel">
+		<view @tap="goHouseModel">
 			<nx-cell icon="/static/home.png" border title="二手房投资估算器"></nx-cell>
 		</view>
 		<!-- #ifdef MP-WEIXIN -->

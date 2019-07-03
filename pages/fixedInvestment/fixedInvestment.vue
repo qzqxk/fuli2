@@ -67,6 +67,7 @@
 			</view>
 			<!-- #endif -->
 		</view>
+	</view>
 </template>
 
 <script>
@@ -92,7 +93,7 @@
 		},
 		// #ifdef MP-WEIXIN
 		onLoad() {
-			
+
 			if (wx.createInterstitialAd) {
 				interstitialAd = wx.createInterstitialAd({
 					adUnitId: 'adunit-4f25f03f655b4f65'
