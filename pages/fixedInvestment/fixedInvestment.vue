@@ -62,16 +62,20 @@
 			<button class="weui-btn" type="primary" @tap="toResult">开始计算</button>
 			<!-- #ifdef MP-WEIXIN -->
 			<button class="weui-btn" type="default" open-type="contact">我要吐槽</button>
+			<view class="fixed-bottom p-3">
+				<ad unit-id="adunit-64fe28fc7b3797b6"></ad>
+			</view>
 			<!-- #endif -->
-		<view class="fixed-bottom p-3">
-			<ad unit-id="adunit-64fe28fc7b3797b6"></ad>
 		</view>
-	</view>
 </template>
 
 <script>
-	import { isNotNumber } from '../../common/js/common.js';
+	import {
+		isNotNumber
+	} from '../../common/js/common.js';
+	// #ifdef MP-WEIXIN
 	let interstitialAd = null;
+	// #endif
 	export default {
 		data() {
 			return {
@@ -86,23 +90,23 @@
 				open: false
 			}
 		},
+		// #ifdef MP-WEIXIN
 		onLoad() {
+			
 			if (wx.createInterstitialAd) {
 				interstitialAd = wx.createInterstitialAd({
 					adUnitId: 'adunit-4f25f03f655b4f65'
 				})
-				interstitialAd.onError((err) => {
-				})
-				interstitialAd.onClose((res) => {
-				})
+				interstitialAd.onError((err) => {})
+				interstitialAd.onClose((res) => {})
 			}
 		},
 		onShow() {
 			if (interstitialAd) {
-				interstitialAd.show().catch((err) => {
-				})
+				interstitialAd.show().catch((err) => {})
 			}
 		},
+		// #endif
 		methods: {
 			switchChange(e) {
 				this.open = e.detail.value;

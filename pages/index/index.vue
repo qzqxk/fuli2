@@ -61,16 +61,20 @@
 			<button class="weui-btn" type="default" open-type="contact">我要吐槽</button>
 			<!-- #endif -->
 		</view>
+		<!-- #ifdef MP-WEIXIN -->
 		<view class="fixed-bottom p-3">
 			<ad unit-id="adunit-64fe28fc7b3797b6"></ad>
 		</view>
+		<!-- #endif -->
 	</view>
 </template>
 
 <script>
+	// #ifdef MP-WEIXIN
 	let interstitialAd = null;
 	//判断是否首次进入小程序
 	let first = true;
+	// #endif
 	import {
 		isNotNumber
 	} from '../../common/js/common.js';
@@ -93,6 +97,7 @@
 				futureValue: '', //终值
 			}
 		},
+		// #ifdef MP-WEIXIN
 		onLoad() {
 			if (wx.createInterstitialAd) {
 				interstitialAd = wx.createInterstitialAd({
@@ -108,6 +113,7 @@
 			}
 			first = false;
 		},
+		// #endif
 		onShareAppMessage(res) {
 			return {
 				title: '复利计算器',

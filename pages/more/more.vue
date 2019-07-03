@@ -1,29 +1,36 @@
 <template>
 	<view>
-		<nx-cell @tap="goInstallment" icon="/static/bag.png" border title="分期利率计算器"></nx-cell>
+		<view @tap="goInstallment">
+			<nx-cell icon="/static/bag.png" border title="分期利率计算器"></nx-cell>
+		</view>
+		<view @tap="goHousesModel">
+			<nx-cell icon="/static/home.png" border title="二手房投资估算器"></nx-cell>
+		</view>
 		<!-- #ifdef MP-WEIXIN -->
-		<nx-cell @tap="goHousesModel" icon="/static/home.png" border title="二手房投资估算器"></nx-cell>
 		<button open-type="contact">
 			<nx-cell icon="/static/service.png" border title="我要吐槽"></nx-cell>
 		</button>
 		<button open-type="share">
 			<nx-cell icon="/static/share.png" title="分享给好友"></nx-cell>
 		</button>
-		<!-- #endif -->
 		<view class="fixed-bottom p-3">
 			<ad unit-id="adunit-64fe28fc7b3797b6"></ad>
 		</view>
+		<!-- #endif -->
 	</view>
 </template>
 
 <script>
 	import nxCell from '../../components/nx-cell.vue';
+	// #ifdef MP-WEIXIN
 	let interstitialAd = null
+	// #endif
 	export default {
 		data() {
 			return {}
 		},
 		onLoad() {
+			// #ifdef MP-WEIXIN
 			if (wx.createInterstitialAd) {
 				interstitialAd = wx.createInterstitialAd({
 					adUnitId: 'adunit-4f25f03f655b4f65'
@@ -31,11 +38,14 @@
 				interstitialAd.onError((err) => {})
 				interstitialAd.onClose((res) => {})
 			}
+			// #endif
 		},
 		onShow() {
+			// #ifdef MP-WEIXIN
 			if (interstitialAd) {
 				interstitialAd.show().catch((err) => {})
 			}
+			// #endif
 		},
 		methods: {
 			goHouseModel() {
