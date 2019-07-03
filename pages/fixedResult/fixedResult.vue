@@ -71,7 +71,7 @@
 			<button class="weui-btn" type="default" @tap="goHome">回到首页</button>
 			<!-- #endif -->
 			<!-- #ifdef H5 -->
-			<button class="weui-btn" type="default" @tap="goHome">回到首页</button>
+			<button class="weui-btn" type="primary" @tap="goHome">回到首页</button>
 			<!-- #endif -->
 			<!-- #ifdef APP-PLUS -->
 			<button class="weui-btn" type="primary" @tap="goHome">回到首页</button>
